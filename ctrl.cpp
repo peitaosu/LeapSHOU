@@ -73,5 +73,23 @@ void ctrl::showCTRL(){
     }else if(CTRL_c == 120 && CTRL_p == 123){
         //Mouse Motion Event
         XTestFakeMotionEvent(QX11Info::display(),-1,mouse_x_p,mouse_y_p,0);
+
+        //Judge the direction
+        int slope = (screen_y - mouse_y_p)/(screen_x - mouse_x_p);
+        //Left & Right
+        if(slope < 1 && slope > -1){
+            if(screen_x - mouse_x_p > 0){
+                //RIGHT
+            }else{
+                //LEFT
+            }
+        //Top & Bottom
+        }else if(slope > 1 || slope < -1){
+            if(screen_y - mouse_y_p > 0){
+                //TOP
+            }else{
+                //BOTTOM
+            }
+        }
     }
 }
