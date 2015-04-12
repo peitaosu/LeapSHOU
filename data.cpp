@@ -26,6 +26,7 @@ double PosSlope;
 
 int Hold[3]={0};
 int hCount;
+int HoldPtr[2]={0};
 
 extern char *program_invocation_name;
 extern char *program_invocation_short_name;
@@ -117,10 +118,12 @@ void NewListener::onFrame(const Controller & controller){
                 gesStatus = 123;
             }else if(Hold[0] == 1 && Hold[1] == 1 && Hold[2] == 0){
                 gesStatus = 122;
+                HoldPtr[0] = mouse_x;
+                HoldPtr[1] = mouse_y;
             }else if(Hold[0] == 1 && Hold[1] == 0 && Hold[2] == 0){
                 gesStatus = 121;
             }else{
-                gesStatus = 0;
+                gesStatus = 120;
             }
 
             std::cout<<Hold[0]<<Hold[1]<<Hold[2]<<std::endl;

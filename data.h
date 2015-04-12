@@ -32,5 +32,6 @@ extern int UserDeviceScreenWidth;
 extern int UserDeviceScreenHeight;
 extern int PosXM,PosYM;
 extern double PosSlope;
+extern int HoldPtr[2];
 #endif // DATA
 

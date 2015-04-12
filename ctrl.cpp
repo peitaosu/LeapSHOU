@@ -8,6 +8,13 @@
 #include <X11/extensions/XTest.h>
 #include <QtX11Extras/QX11Info>
 
+//New 2 variable to make a gesture status change event
+int CTRL_c;
+int CTRL_p;
+//New 2 variable to save the prev mouse ptr
+int mouse_x_p;
+int mouse_y_p;
+
 ctrl::ctrl(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ctrl)
@@ -40,8 +47,12 @@ ctrl::~ctrl()
 }
 
 void ctrl::showCTRL(){
+    //gesture Statu change event
+    CTRL_p = CTRL_c;
+    CTRL_c = gesStatus;
+
+    //make a visual window change
     if(gesStatus == 123){
-        //XTestFakeMotionEvent(QX11Info::display(),-1,70,50,0);
         this->setGeometry(screen_x-90,screen_y-90,180,180);
         this->setWindowOpacity(0.5);
     }else if(gesStatus == 122){
@@ -52,5 +63,15 @@ void ctrl::showCTRL(){
         this->setWindowOpacity(0.1);
     }else{
         this->setWindowOpacity(0);
+    }
+
+    //When the CTRL change from 122 to 123, save the mouse ptr
+    if(CTRL_c == 123 && CTRL_p == 122){
+        //in Linux/X11, it`s screen pix
+        mouse_x_p = screen_x;
+        mouse_y_p = screen_y;
+    }else if(CTRL_c == 120 && CTRL_p == 123){
+        //Mouse Motion Event
+        XTestFakeMotionEvent(QX11Info::display(),-1,mouse_x_p,mouse_y_p,0);
     }
 }
