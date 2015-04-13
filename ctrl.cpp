@@ -17,8 +17,8 @@ int mouse_y_p;
 
 ctrl::ctrl(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ctrl)
-{
+    ui(new Ui::ctrl){
+
     ui->setupUi(this);
 
     //Set Geometry (-60,-60) from Right-Buttom, size is 180*180
@@ -41,8 +41,7 @@ ctrl::ctrl(QWidget *parent) :
 
 }
 
-ctrl::~ctrl()
-{
+ctrl::~ctrl(){
     delete ui;
 }
 
@@ -72,7 +71,7 @@ void ctrl::showCTRL(){
         mouse_y_p = screen_y;
     }else if(CTRL_c == 120 && CTRL_p == 123){
         //Mouse Motion Event
-        XTestFakeMotionEvent(QX11Info::display(),-1,mouse_x_p,mouse_y_p,0);
+        //XTestFakeMotionEvent(QX11Info::display(),-1,mouse_x_p,mouse_y_p,0);
 
         //Judge the direction
         int slope = (screen_y - mouse_y_p)/(screen_x - mouse_x_p);
@@ -80,15 +79,33 @@ void ctrl::showCTRL(){
         if(slope < 1 && slope > -1){
             if(screen_x - mouse_x_p > 0){
                 //RIGHT
+                //Move the mouse to Prev position
+                XTestFakeMotionEvent(QX11Info::display(),-1,mouse_x_p,mouse_y_p,0);
+                //Press and Release the Left button
+                /* 1,Left botton   *
+                 * 2,Middle botton *
+                 * 3,Right botton  */
+                XTestFakeButtonEvent(QX11Info::display(),3,true,0);
+                XTestFakeButtonEvent(QX11Info::display(),3,false,0);
             }else{
                 //LEFT
+                //Move the mouse to Prev position
+                XTestFakeMotionEvent(QX11Info::display(),-1,mouse_x_p,mouse_y_p,0);
+                //Press and Release the Left button
+                XTestFakeButtonEvent(QX11Info::display(),1,true,0);
+                XTestFakeButtonEvent(QX11Info::display(),1,false,0);
+
             }
         //Top & Bottom
         }else if(slope > 1 || slope < -1){
             if(screen_y - mouse_y_p > 0){
                 //TOP
+                this->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0.5 rgba(255, 0, 0, 255), stop:0.501 rgba(64, 0, 255, 255));");
+
             }else{
                 //BOTTOM
+                this->setStyleSheet("background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:0, y2:0, stop:0.5 rgba(255, 0, 0, 255), stop:0.501 rgba(64, 0, 255, 255));");
+
             }
         }
     }
