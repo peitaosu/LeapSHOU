@@ -31,25 +31,25 @@ int HoldPtr[2]={0};
 extern char *program_invocation_name;
 extern char *program_invocation_short_name;
 
-void NewListener::onInit(const Controller & controller){
+void dataListener::onInit(const Controller & controller){
     std::cout << "Initialized" << std::endl;
 }
-void NewListener::onConnect(const Controller & controller){
+void dataListener::onConnect(const Controller & controller){
     std::cout << "Connected" << std::endl;
 }
-void NewListener::onDisconnect(const Controller & controller){
+void dataListener::onDisconnect(const Controller & controller){
     std::cout << "Disconnected" << std::endl;
 }
-void NewListener::onServiceConnect(const Controller & controller){
+void dataListener::onServiceConnect(const Controller & controller){
     std::cout << "Service Connected" << std::endl;
 }
-void NewListener::onServiceDisconnect(const Controller & controller){
+void dataListener::onServiceDisconnect(const Controller & controller){
     std::cout << "Service Disconnected" << std::endl;
 }
-void NewListener::onExit(const Controller & controller){
+void dataListener::onExit(const Controller & controller){
     std::cout << "Exited" << std::endl;
 }
-void NewListener::onFrame(const Controller & controller){
+void dataListener::onFrame(const Controller & controller){
     //Get frames and processing data
     const Frame frame = controller.frame();
     //Set a InteractionBox
@@ -134,12 +134,12 @@ void NewListener::onFrame(const Controller & controller){
 
     }
 }
-void NewListener::onDeviceChange(const Controller & controller){
+void dataListener::onDeviceChange(const Controller & controller){
     std::cout << "Device Changed" << std::endl;
 }
-void NewListener::onFocusGained(const Controller & controller){
+void dataListener::onFocusGained(const Controller & controller){
     std::cout << "Focus Gained" << std::endl;
 }
-void NewListener::onFocusLost(const Controller & controller){
+void dataListener::onFocusLost(const Controller & controller){
     std::cout << "Focus Lost" << std::endl;
 }

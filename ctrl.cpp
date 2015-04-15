@@ -80,20 +80,20 @@ void ctrl::showCTRL(){
             if(screen_x - mouse_x_p > 0){
                 //RIGHT
                 //Move the mouse to Prev position
-                XTestFakeMotionEvent(QX11Info::display(),-1,mouse_x_p,mouse_y_p,0);
+                //XTestFakeMotionEvent(QX11Info::display(),-1,mouse_x_p,mouse_y_p,0);
                 //Press and Release the Left button
                 /* 1,Left botton   *
                  * 2,Middle botton *
                  * 3,Right botton  */
-                XTestFakeButtonEvent(QX11Info::display(),3,true,0);
-                XTestFakeButtonEvent(QX11Info::display(),3,false,0);
+                //XTestFakeButtonEvent(QX11Info::display(),3,true,0);
+                //XTestFakeButtonEvent(QX11Info::display(),3,false,0);
             }else{
                 //LEFT
                 //Move the mouse to Prev position
-                XTestFakeMotionEvent(QX11Info::display(),-1,mouse_x_p,mouse_y_p,0);
+                //XTestFakeMotionEvent(QX11Info::display(),-1,mouse_x_p,mouse_y_p,0);
                 //Press and Release the Left button
-                XTestFakeButtonEvent(QX11Info::display(),1,true,0);
-                XTestFakeButtonEvent(QX11Info::display(),1,false,0);
+                //XTestFakeButtonEvent(QX11Info::display(),1,true,0);
+                //XTestFakeButtonEvent(QX11Info::display(),1,false,0);
 
             }
         //Top & Bottom

@@ -14,7 +14,7 @@
 #include "ctrl.h"
 int main(int argc, char *argv[])
 {
-    NewListener listener;
+    dataListener listener;
     Controller controller;
     controller.addListener(listener);
     controller.setPolicy(Leap::Controller::POLICY_BACKGROUND_FRAMES);

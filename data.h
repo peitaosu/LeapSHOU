@@ -6,7 +6,7 @@
 #include "header/fit.h"
 using namespace Leap;
 
-class NewListener:public Listener{
+class dataListener:public Listener{
 public:
     virtual void onInit(const Controller&);
     virtual void onConnect(const Controller&);
