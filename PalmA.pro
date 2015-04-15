@@ -24,7 +24,8 @@ HEADERS  += geswin.h\
     data.h \
     vmouse.h \
     header/fit.h \
-    ctrl.h
+    ctrl.h \
+    geslist.h
 
 FORMS    += geswin.ui \
     vmouse.ui \

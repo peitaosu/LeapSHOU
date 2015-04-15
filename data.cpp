@@ -9,7 +9,7 @@
 
 #include "data.h"
 #include <QDebug>
-
+#include <list>
 int Status;
 int gesStatus;
 
@@ -57,8 +57,7 @@ void dataListener::onFrame(const Controller & controller){
     //Set a HandList
     HandList hands = frame.hands();
 
-    //std::cout<<program_invocation_short_name<<std::endl;
-
+    std::list<int> GesList;
     for(HandList::const_iterator hl = hands.begin();hl != hands.end();++hl){
 
         //Get the 1st Hand
@@ -115,23 +114,42 @@ void dataListener::onFrame(const Controller & controller){
             }
             if(Hold[0] == 1 && Hold[1] == 1 && Hold[2] == 1){
                 //HOLD in a Long Time.
+                GesList.push_back(123);
                 gesStatus = 123;
             }else if(Hold[0] == 1 && Hold[1] == 1 && Hold[2] == 0){
                 gesStatus = 122;
+                GesList.push_back(122);
                 HoldPtr[0] = mouse_x;
                 HoldPtr[1] = mouse_y;
             }else if(Hold[0] == 1 && Hold[1] == 0 && Hold[2] == 0){
+                GesList.push_back(121);
                 gesStatus = 121;
             }else{
+                GesList.push_back(120);
                 gesStatus = 120;
             }
-
             std::cout<<Hold[0]<<Hold[1]<<Hold[2]<<std::endl;
-
-
         }
 
-
+    }
+    for(std::list<int>::const_iterator GL= GesList.begin();GL!=GesList.end();++GL){
+        int Ges = *GL;
+        switch (Ges) {
+        case 123:
+            std::cout<<123<<std::endl;
+            break;
+        case 122:
+            std::cout<<122<<std::endl;
+            break;
+        case 121:
+            std::cout<<121<<std::endl;
+            break;
+        case 120:
+            std::cout<<120<<std::endl;
+            break;
+        default:
+            break;
+        }
     }
 }
 void dataListener::onDeviceChange(const Controller & controller){

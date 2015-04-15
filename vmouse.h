@@ -24,6 +24,7 @@ private:
     Leap::InteractionBox iBox;
     Leap::PointableList pointables;
     Leap::Pointable pointable;
+    std::list<int> GesList;
 
 public slots:
 

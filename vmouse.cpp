@@ -63,4 +63,6 @@ void vmouse::paintEvent(QPaintEvent *event){
     //Move the RealMouse use screen position (screen_x,screen_y)
     XTestFakeMotionEvent(QX11Info::display(),-1,screen_x,screen_y,0);
 
+
+
 }
