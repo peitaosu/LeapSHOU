@@ -13,13 +13,15 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <netinet/in.h>
-#include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <stdlib.h>
 
-#define  SERVER_PORT 20004  //  define the defualt connect port id
+#define  SERVER_PORT 20000  //  define the defualt connect port id
 #define  LENGTH_OF_LISTEN_QUEUE 10  // length of listen queue in server
 #define  BUFFER_SIZE 4
+#define  SCREENX 1366
+#define  SCREENY 768
 
 using namespace Leap;
 
@@ -44,7 +46,7 @@ const std::string boneNames[] = {"Metacarpal", "Proximal", "Middle", "Distal"};
 const std::string stateNames[] = {"STATE_INVALID", "STATE_START", "STATE_UPDATE", "STATE_END"};
 int  servfd,clifd;
 struct  sockaddr_in servaddr,cliaddr;
-int  buf[BUFFER_SIZE];
+char buf[20];
 
 void SampleListener::onInit(const Controller& controller) {
 
@@ -119,32 +121,28 @@ void SampleListener::onFrame(const Controller& controller) {
       const Vector handCenter = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition());
 
       int mouse_x,mouse_y,screen_x,screen_y;
-      //Set Virtual Mouse Position
-      /*
-       * Mouse Position is between 65535*65535
-       * base from screen Left-Top.
-       */
+
       mouse_x = handCenter.x * 65535;
       mouse_y = 65535 - handCenter.y * 65535;
 
-      //Set Position in User`s Device Screen
-      /*
-       * Screen Width and Height will changed
-       * while User change their Screen
-       */
-      screen_x = handCenter.x*1920;
-      screen_y = (1-handCenter.y)*1080;
+      screen_x = handCenter.x*SCREENX;
+      screen_y = (1-handCenter.y)*SCREENY;
 
       std::cout<<mouse_x<<mouse_y<<screen_x<<screen_y<<std::endl;
-
-      buf[0] = mouse_x;
-      buf[1] = mouse_y;
-      buf[2] = screen_x;
-      buf[3] = screen_y;
+      //char c ;
+      //strcpy(buf,"HELLO");
+      //itoa(screen_x,c,10);
+      //strcat(buf,c);
+      //itoa(screen_y,c,10);
+      //strcat(buf,c);
+      //itoa(mouse_x,c,10);
+      //strcat(buf,c);
+      //itoa(mouse_y,c,10);
+      //strcat(buf,c);
 
       send(clifd,buf,BUFFER_SIZE, 0 );
 
-      std::cout<<buf[0]<<","<<buf[1]<<","<<buf[2]<<","<<buf[3]<<std::endl;
+      std::cout<<buf<<std::endl;
 
   }
 
