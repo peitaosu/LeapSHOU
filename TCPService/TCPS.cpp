@@ -132,7 +132,7 @@ void SampleListener::onFrame(const Controller& controller) {
       std::cout<<mouse_x<<mouse_y<<screen_x<<screen_y<<std::endl;
 
       std::stringstream ss;
-      ss<<screen_x<<","<<screen_y<<","<<mouse_x<<","<<mouse_y;
+      ss<<screen_x+10000<<screen_y+10000<<mouse_x<<mouse_y;
       std::string si = ss.str();
       const char *c = si.c_str();
       c = si.c_str();
