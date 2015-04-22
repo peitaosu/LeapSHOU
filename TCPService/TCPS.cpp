@@ -14,12 +14,13 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <time.h>
-#include <string.h>
+#include <cstring>
 #include <stdlib.h>
+#include <sstream>
 
 #define  SERVER_PORT 20000  //  define the defualt connect port id
 #define  LENGTH_OF_LISTEN_QUEUE 10  // length of listen queue in server
-#define  BUFFER_SIZE 4
+#define  BUFFER_SIZE 20
 #define  SCREENX 1366
 #define  SCREENY 768
 
@@ -129,17 +130,13 @@ void SampleListener::onFrame(const Controller& controller) {
       screen_y = (1-handCenter.y)*SCREENY;
 
       std::cout<<mouse_x<<mouse_y<<screen_x<<screen_y<<std::endl;
-      //char c ;
-      //strcpy(buf,"HELLO");
-      //itoa(screen_x,c,10);
-      //strcat(buf,c);
-      //itoa(screen_y,c,10);
-      //strcat(buf,c);
-      //itoa(mouse_x,c,10);
-      //strcat(buf,c);
-      //itoa(mouse_y,c,10);
-      //strcat(buf,c);
 
+      std::stringstream ss;
+      ss<<screen_x<<","<<screen_y<<","<<mouse_x<<","<<mouse_y;
+      std::string si = ss.str();
+      const char *c = si.c_str();
+      c = si.c_str();
+      strcpy(buf,c);
       send(clifd,buf,BUFFER_SIZE, 0 );
 
       std::cout<<buf<<std::endl;

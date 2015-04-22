@@ -12,11 +12,19 @@ else
   LEAP_LIBRARY := ../lib/libLeap.dylib
 endif
 
+
+all:TCPS TCPC
+
 TCPS: TCPS.cpp
 	$(CXX) -Wall -g -I../header TCPS.cpp -o TCPS $(LEAP_LIBRARY)
 ifeq ($(OS), Darwin)
 	install_name_tool -change @loader_path/libLeap.dylib ../lib/libLeap.dylib TCPS
 endif
 
+TCPC: TCPC.c
+	$(CC) -Wall TCPC.c -o TCPC
+
+.PHONY:all
+
 clean:
-	rm -rf TCPS TCPS.dSYM
+	rm -rf TCPS TCPS.dSYM TCPC TCPC.dSYM
