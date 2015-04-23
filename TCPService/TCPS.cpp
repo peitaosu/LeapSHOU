@@ -18,8 +18,8 @@
 #include <stdlib.h>
 #include <sstream>
 
-#define  SERVER_PORT 20000  //  define the defualt connect port id
-#define  LENGTH_OF_LISTEN_QUEUE 10  // length of listen queue in server
+#define  SERVER_PORT 20000
+#define  LENGTH_OF_LISTEN_QUEUE 10
 #define  BUFFER_SIZE 20
 #define  SCREENX 1366
 #define  SCREENY 768
@@ -45,6 +45,7 @@ class SampleListener : public Listener {
 const std::string fingerNames[] = {"Thumb", "Index", "Middle", "Ring", "Pinky"};
 const std::string boneNames[] = {"Metacarpal", "Proximal", "Middle", "Distal"};
 const std::string stateNames[] = {"STATE_INVALID", "STATE_START", "STATE_UPDATE", "STATE_END"};
+
 int  servfd,clifd;
 struct  sockaddr_in servaddr,cliaddr;
 char buf[20];
