@@ -20,9 +20,11 @@
 
 #define  SERVER_PORT 20000
 #define  LENGTH_OF_LISTEN_QUEUE 10
-#define  BUFFER_SIZE 20
+#define  BUFFER_SIZE 1
 #define  SCREENX 1366
 #define  SCREENY 768
+
+enum DirecGes{UP,DOWN,LEFT,RIGHTM,FORWARD,BACKWARD};
 
 using namespace Leap;
 
@@ -112,14 +114,16 @@ void SampleListener::onFrame(const Controller& controller) {
   HandList hands = frame.hands();
 
 
-
-
   for(HandList::const_iterator hl = hands.begin();hl != hands.end();++hl){
       std::cout<<"Begin Hands"<<std::endl;
 
       //Get the 1st Hand
       const Hand hand = *hl;
       //Get the hand`s normal Vector and Direction
+
+      /*
+       *Send hands position
+       *
       const Vector handCenter = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition());
 
       int mouse_x,mouse_y,screen_x,screen_y;
@@ -141,7 +145,37 @@ void SampleListener::onFrame(const Controller& controller) {
       send(clifd,buf,BUFFER_SIZE, 0 );
 
       std::cout<<buf<<std::endl;
+       *
+       *
+       */
 
+      Vector handSpeed = controller.frame().hands()[0].palmVelocity();
+
+      if(handSpeed.x > 1500){
+        //RIGHT
+        strcpy(buf,"R");
+      }else if(handSpeed.x < -1500){
+        //LEFT
+        strcpy(buf,"L");
+      }
+
+      if(handSpeed.y > 1500){
+        //UP
+        strcpy(buf,"U");
+      }else if(handSpeed.y < -1500){
+        //DOWN
+        strcpy(buf,"D");
+      }
+
+      if(handSpeed.z > 1500){
+        //FORWARD
+        strcpy(buf,"F");
+      }else if(handSpeed.z < -1500){
+        //BACKWARD
+        strcpy(buf,"B");
+      }
+
+      send(clifd,buf,BUFFER_SIZE, 0 );
   }
 
 

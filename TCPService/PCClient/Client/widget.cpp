@@ -23,7 +23,7 @@
 
 #define  SERVER_PORT 20000  //  define the defualt connect port id
 #define  CLIENT_PORT ((20001+rand())%65536)  //  define the defualt client port as a random port
-#define  BUFFER_SIZE 20
+#define  BUFFER_SIZE 1
 
 char buf[BUFFER_SIZE];
 int  servfd,clifd,length = 0;
@@ -92,6 +92,10 @@ Widget::~Widget()
 }
 
 void Widget::paintEvent(QPaintEvent *event){
+
+    /*
+     *Draw the position
+     *
     //New painter
     QPainter painter(this);
 
@@ -105,26 +109,43 @@ void Widget::paintEvent(QPaintEvent *event){
     //Draw Ellipse, size is 50*50, position is (screen_x - 25, screen_y - 25)
     painter.drawEllipse(screen_x-25 ,screen_y-25,50,50);
 
+     *
+     *
+     */
     //Move the RealMouse use screen position (screen_x,screen_y)
     //XTestFakeMotionEvent(QX11Info::display(),-1,screen_x,screen_y,0);
 
     length  =  recv(clifd, buf, BUFFER_SIZE, 0);
-     if  (length < 0)
-     {
+    if(length < 0){
            printf( " error comes when recieve data from server %s! ", "127.0.0.1");
            exit( 1 );
+    }else{
+      switch(buf){
+        case "L":break;
+        case "R":break;
+        case "U":break;
+        case "D":break;
+        case "F":break;
+        case "B":break;
+      }
     }
 
+    /*
+     *recv screen/mouse position
+     *
     strncpy(scx,buf,5);
     screen_x = atoi(scx)%10000;
     strncpy(scx,buf+5,5);
     screen_y = atoi(scx)%10000;
-    /*
+
     strncpy(scx,buf+10,5);
     mouse_x = atoi(scx);
     strncpy(scx,buf+15,5);
     mouse_y = atoi(scx);
     std::cout<<screen_x<<","<<screen_y<<","<<mouse_x<<","<<mouse_y<<std::endl;
-    */
+     *
+     *
+     */
+
     //std::cout<<buf<<std::endl;
 }
