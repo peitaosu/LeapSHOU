@@ -27,6 +27,8 @@
 
 char buf[BUFFER_SIZE];
 int  servfd,clifd,length = 0;
+int screen_x,screen_y,mouse_x,mouse_y;
+char scx[] = "HELLO";
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -46,7 +48,7 @@ Widget::Widget(QWidget *parent) :
     //New a Timer to Update PaintEvent, time is 20ms
     QTimer *mouseTimer = new QTimer(this);
     connect(mouseTimer,SIGNAL(timeout()),this,SLOT(update()));
-    mouseTimer->start(50);
+    mouseTimer->start(10);
 
     struct  sockaddr_in servaddr,cliaddr;
     socklen_t socklen  =   sizeof (servaddr);
@@ -101,7 +103,7 @@ void Widget::paintEvent(QPaintEvent *event){
     painter.setBrush(QBrush(QColor(00,160,255,200)));
 
     //Draw Ellipse, size is 50*50, position is (screen_x - 25, screen_y - 25)
-    //painter.drawEllipse(screen_x-25 ,screen_y-25,50,50);
+    painter.drawEllipse(screen_x-25 ,screen_y-25,50,50);
 
     //Move the RealMouse use screen position (screen_x,screen_y)
     //XTestFakeMotionEvent(QX11Info::display(),-1,screen_x,screen_y,0);
@@ -112,17 +114,17 @@ void Widget::paintEvent(QPaintEvent *event){
            printf( " error comes when recieve data from server %s! ", "127.0.0.1");
            exit( 1 );
     }
-    int screen_x,screen_y,mouse_x,mouse_y;
-    char scx[] = "HELLO";
+
     strncpy(scx,buf,5);
     screen_x = atoi(scx)%10000;
-    //std::cout<<screen_x<<std::endl;
     strncpy(scx,buf+5,5);
     screen_y = atoi(scx)%10000;
+    /*
     strncpy(scx,buf+10,5);
     mouse_x = atoi(scx);
     strncpy(scx,buf+15,5);
     mouse_y = atoi(scx);
     std::cout<<screen_x<<","<<screen_y<<","<<mouse_x<<","<<mouse_y<<std::endl;
-    std::cout<<buf<<std::endl;
+    */
+    //std::cout<<buf<<std::endl;
 }
