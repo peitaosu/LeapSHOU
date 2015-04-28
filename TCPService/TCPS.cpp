@@ -21,8 +21,8 @@
 #define  SERVER_PORT 20000
 #define  LENGTH_OF_LISTEN_QUEUE 10
 #define  BUFFER_SIZE 1
-#define  SCREENX 1366
-#define  SCREENY 768
+//#define  SCREENX 1366
+//#define  SCREENY 768
 
 enum DirecGes{UP,DOWN,LEFT,RIGHTM,FORWARD,BACKWARD};
 

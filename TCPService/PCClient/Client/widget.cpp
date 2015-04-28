@@ -26,9 +26,9 @@
 #define  BUFFER_SIZE 1
 
 char buf[BUFFER_SIZE];
-int  servfd,clifd,length = 0;
-int screen_x,screen_y,mouse_x,mouse_y;
-char scx[] = "HELLO";
+int servfd,clifd,length = 0;
+//int screen_x,screen_y,mouse_x,mouse_y;
+//char scx[] = "HELLO";
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -45,10 +45,15 @@ Widget::Widget(QWidget *parent) :
     //Set Mouse Shape Input when the window stay on top, in X11/Linux
     XShapeCombineRectangles(QX11Info::display(), winId(), ShapeInput,0,0, NULL, 0, ShapeSet, YXBanded);
 
-    //New a Timer to Update PaintEvent, time is 20ms
+    /*
+    //New a Timer to Update PaintEvent, time is 10ms
     QTimer *mouseTimer = new QTimer(this);
     connect(mouseTimer,SIGNAL(timeout()),this,SLOT(update()));
     mouseTimer->start(10);
+    */
+    QTimer *showGesTimer = new QTimer(this);
+    connect(mouseTimer,SIGNAL(timeout()),this,SLOT(showGesture()));
+    showGesTimer ->start(10);
 
     struct  sockaddr_in servaddr,cliaddr;
     socklen_t socklen  =   sizeof (servaddr);
@@ -91,6 +96,24 @@ Widget::~Widget()
     delete ui;
 }
 
+void Widget::showGesture(){
+    length  =  recv(clifd, buf, BUFFER_SIZE, 0);
+    if(length < 0){
+         printf( " error comes when recieve data from server %s! ", "127.0.0.1");
+         exit( 1 );
+    }else{
+         switch(buf){
+           case "L":break;
+           case "R":break;
+           case "U":break;
+           case "D":break;
+           case "F":break;
+           case "B":break;
+         }
+    }
+}
+
+/*
 void Widget::paintEvent(QPaintEvent *event){
 
     /*
@@ -111,24 +134,9 @@ void Widget::paintEvent(QPaintEvent *event){
 
      *
      *
-     */
+     *
     //Move the RealMouse use screen position (screen_x,screen_y)
     //XTestFakeMotionEvent(QX11Info::display(),-1,screen_x,screen_y,0);
-
-    length  =  recv(clifd, buf, BUFFER_SIZE, 0);
-    if(length < 0){
-           printf( " error comes when recieve data from server %s! ", "127.0.0.1");
-           exit( 1 );
-    }else{
-      switch(buf){
-        case "L":break;
-        case "R":break;
-        case "U":break;
-        case "D":break;
-        case "F":break;
-        case "B":break;
-      }
-    }
 
     /*
      *recv screen/mouse position
@@ -145,7 +153,8 @@ void Widget::paintEvent(QPaintEvent *event){
     std::cout<<screen_x<<","<<screen_y<<","<<mouse_x<<","<<mouse_y<<std::endl;
      *
      *
-     */
+     *
 
     //std::cout<<buf<<std::endl;
 }
+*/
