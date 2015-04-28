@@ -20,6 +20,7 @@ private:
 
 private slots:
     void paintEvent(QPaintEvent *event);
+    void showGesture();
 
 };
 
