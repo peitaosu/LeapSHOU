@@ -50,7 +50,7 @@ const std::string stateNames[] = {"STATE_INVALID", "STATE_START", "STATE_UPDATE"
 
 int  servfd,clifd;
 struct  sockaddr_in servaddr,cliaddr;
-char buf[20];
+char buf[BUFFER_SIZE];
 
 void SampleListener::onInit(const Controller& controller) {
 
@@ -98,6 +98,7 @@ void SampleListener::onConnect(const Controller& controller) {
 void SampleListener::onDisconnect(const Controller& controller) {
   // Note: not dispatched when running in a debugger.
   std::cout << "Disconnected" << std::endl;
+  close(clifd);
 }
 
 void SampleListener::onExit(const Controller& controller) {
@@ -188,7 +189,7 @@ void SampleListener::onFocusGained(const Controller& controller) {
 
 void SampleListener::onFocusLost(const Controller& controller) {
   std::cout << "Focus Lost" << std::endl;
-  close(clifd);
+
 }
 
 void SampleListener::onDeviceChange(const Controller& controller) {
