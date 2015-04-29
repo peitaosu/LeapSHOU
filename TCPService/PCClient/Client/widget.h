@@ -19,7 +19,6 @@ private:
     Ui::Widget *ui;
 
 private slots:
-    void paintEvent(QPaintEvent *event);
     void showGesture();
 
 };

@@ -20,9 +20,9 @@
 
 #define  SERVER_PORT 20000
 #define  LENGTH_OF_LISTEN_QUEUE 10
-#define  BUFFER_SIZE 1
-//#define  SCREENX 1366
-//#define  SCREENY 768
+#define  BUFFER_SIZE 10
+#define  SCREENX 1366
+#define  SCREENY 768
 
 enum DirecGes{UP,DOWN,LEFT,RIGHTM,FORWARD,BACKWARD};
 
@@ -123,7 +123,7 @@ void SampleListener::onFrame(const Controller& controller) {
 
       /*
        *Send hands position
-       *
+       */
       const Vector handCenter = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition());
 
       int mouse_x,mouse_y,screen_x,screen_y;
@@ -137,14 +137,8 @@ void SampleListener::onFrame(const Controller& controller) {
       std::cout<<mouse_x<<mouse_y<<screen_x<<screen_y<<std::endl;
 
       std::stringstream ss;
-      ss<<screen_x+10000<<screen_y+10000<<mouse_x<<mouse_y;
-      std::string si = ss.str();
-      const char *c = si.c_str();
-      c = si.c_str();
-      strcpy(buf,c);
-      send(clifd,buf,BUFFER_SIZE, 0 );
-
-      std::cout<<buf<<std::endl;
+      ss<<screen_x+1000<<screen_y+1000;
+      /*
        *
        *
        */
@@ -153,29 +147,35 @@ void SampleListener::onFrame(const Controller& controller) {
 
       if(handSpeed.x > 1500){
         //RIGHT
-        strcpy(buf,"R");
+        ss<<"R";
       }else if(handSpeed.x < -1500){
         //LEFT
-        strcpy(buf,"L");
+        ss<<"L";
       }
 
       if(handSpeed.y > 1500){
         //UP
-        strcpy(buf,"U");
+        ss<<"U";
       }else if(handSpeed.y < -1500){
         //DOWN
-        strcpy(buf,"D");
+        ss<<"D";
       }
 
       if(handSpeed.z > 1500){
         //FORWARD
-        strcpy(buf,"F");
+        ss<<"F";
       }else if(handSpeed.z < -1500){
         //BACKWARD
-        strcpy(buf,"B");
+        ss<<"B";
       }
 
+      std::string si = ss.str();
+      const char *c = si.c_str();
+      c = si.c_str();
+      strcpy(buf,c);
       send(clifd,buf,BUFFER_SIZE, 0 );
+
+      std::cout<<buf<<std::endl;
   }
 
 
