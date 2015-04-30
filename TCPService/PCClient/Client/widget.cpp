@@ -19,7 +19,7 @@
 #define  SERVER_PORT 20000  //  define the defualt connect port id
 #define  CLIENT_PORT ((20001+rand())%65536)  //  define the defualt client port as a random port
 #define  BUFFER_SIZE 10
-
+#define  LOGINIP "192.168.1.101"
 char buf[BUFFER_SIZE];
 int servfd,clifd,length = 0;
 //int screen_x,screen_y,mouse_x,mouse_y;
@@ -62,7 +62,7 @@ Widget::Widget(QWidget *parent) :
 
     bzero( & servaddr, sizeof (servaddr));
     servaddr.sin_family  =  AF_INET;
-    inet_aton("127.0.0.1", & servaddr.sin_addr);
+    inet_aton(LOGINIP, & servaddr.sin_addr);
     servaddr.sin_port  =  htons(SERVER_PORT);
    // servaddr.sin_addr.s_addr = htons(INADDR_ANY);
 
