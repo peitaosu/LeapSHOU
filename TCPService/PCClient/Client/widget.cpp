@@ -10,21 +10,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <QCursor>
 #include <QDesktopWidget>
-#include <QPalette>
-#include <QColor>
-#include <QPainter>
-#include <QPoint>
 #include <QTimer>
+
 #include <X11/extensions/shape.h>
-#include <X11/extensions/XTest.h>
 #include <QtX11Extras/QX11Info>
 
 #define  SERVER_PORT 20000  //  define the defualt connect port id
 #define  CLIENT_PORT ((20001+rand())%65536)  //  define the defualt client port as a random port
-#define  BUFFER_SIZE 1
-
+#define  BUFFER_SIZE 10
+#define  LOGINIP "192.168.1.101"
 char buf[BUFFER_SIZE];
 int servfd,clifd,length = 0;
 //int screen_x,screen_y,mouse_x,mouse_y;
@@ -45,14 +40,8 @@ Widget::Widget(QWidget *parent) :
     //Set Mouse Shape Input when the window stay on top, in X11/Linux
     XShapeCombineRectangles(QX11Info::display(), winId(), ShapeInput,0,0, NULL, 0, ShapeSet, YXBanded);
 
-    /*
-    //New a Timer to Update PaintEvent, time is 10ms
-    QTimer *mouseTimer = new QTimer(this);
-    connect(mouseTimer,SIGNAL(timeout()),this,SLOT(update()));
-    mouseTimer->start(10);
-    */
     QTimer *showGesTimer = new QTimer(this);
-    connect(mouseTimer,SIGNAL(timeout()),this,SLOT(showGesture()));
+    connect(showGesTimer,SIGNAL(timeout()),this,SLOT(showGesture()));
     showGesTimer ->start(10);
 
     struct  sockaddr_in servaddr,cliaddr;
@@ -73,7 +62,7 @@ Widget::Widget(QWidget *parent) :
 
     bzero( & servaddr, sizeof (servaddr));
     servaddr.sin_family  =  AF_INET;
-    inet_aton("127.0.0.1", & servaddr.sin_addr);
+    inet_aton(LOGINIP, & servaddr.sin_addr);
     servaddr.sin_port  =  htons(SERVER_PORT);
    // servaddr.sin_addr.s_addr = htons(INADDR_ANY);
 
@@ -102,59 +91,16 @@ void Widget::showGesture(){
          printf( " error comes when recieve data from server %s! ", "127.0.0.1");
          exit( 1 );
     }else{
-         switch(buf){
-           case "L":break;
-           case "R":break;
-           case "U":break;
-           case "D":break;
-           case "F":break;
-           case "B":break;
+         char cr = buf[8];
+         switch(cr){
+           case 'L':std::cout<<"LEFT"<<std::endl;break;
+           case 'R':std::cout<<"RIGHT"<<std::endl;break;
+           case 'U':std::cout<<"UP"<<std::endl;break;
+           case 'D':std::cout<<"DOWN"<<std::endl;break;
+           case 'F':std::cout<<"FORWARD"<<std::endl;break;
+           case 'B':std::cout<<"BACKWARD"<<std::endl;break;
+         default:break;
          }
     }
 }
 
-/*
-void Widget::paintEvent(QPaintEvent *event){
-
-    /*
-     *Draw the position
-     *
-    //New painter
-    QPainter painter(this);
-
-    //Clear
-    painter.fillRect(this->rect(), QColor(0,0,0,0));
-
-    //Set Pen and Brush, Brush color is R160:G255:B200 (BLUE)
-    painter.setPen(Qt::NoPen);
-    painter.setBrush(QBrush(QColor(00,160,255,200)));
-
-    //Draw Ellipse, size is 50*50, position is (screen_x - 25, screen_y - 25)
-    painter.drawEllipse(screen_x-25 ,screen_y-25,50,50);
-
-     *
-     *
-     *
-    //Move the RealMouse use screen position (screen_x,screen_y)
-    //XTestFakeMotionEvent(QX11Info::display(),-1,screen_x,screen_y,0);
-
-    /*
-     *recv screen/mouse position
-     *
-    strncpy(scx,buf,5);
-    screen_x = atoi(scx)%10000;
-    strncpy(scx,buf+5,5);
-    screen_y = atoi(scx)%10000;
-
-    strncpy(scx,buf+10,5);
-    mouse_x = atoi(scx);
-    strncpy(scx,buf+15,5);
-    mouse_y = atoi(scx);
-    std::cout<<screen_x<<","<<screen_y<<","<<mouse_x<<","<<mouse_y<<std::endl;
-     *
-     *
-     *
-
-    //std::cout<<buf<<std::endl;
-}
-*/

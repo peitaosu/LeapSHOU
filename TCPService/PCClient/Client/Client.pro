@@ -14,10 +14,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        widget.cpp
+        widget.cpp \
+    vmouse.cpp
 
-HEADERS  += widget.h
+HEADERS  += widget.h \
+    vmouse.h
 
-FORMS    += widget.ui
+FORMS    += widget.ui \
+    vmouse.ui
 
 LIBS += -lX11 -lXext -lXtst
