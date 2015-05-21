@@ -16,7 +16,8 @@ SOURCES += main.cpp\
         geswin.cpp \
     data.cpp \
     vmouse.cpp \
-    ctrl.cpp
+    ctrl.cpp \
+    getwmname.cpp
 
 HEADERS  += geswin.h\
     header/LeapMath.h \
@@ -25,7 +26,8 @@ HEADERS  += geswin.h\
     vmouse.h \
     header/fit.h \
     ctrl.h \
-    geslist.h
+    geslist.h \
+    getwmname.h
 
 FORMS    += geswin.ui \
     vmouse.ui \

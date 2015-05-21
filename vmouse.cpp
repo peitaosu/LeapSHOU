@@ -40,7 +40,6 @@ vmouse::vmouse(QWidget *parent) :
     mouseTimer->start(20);
 
 }
-
 vmouse::~vmouse()
 {
     delete ui;

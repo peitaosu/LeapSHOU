@@ -7,7 +7,7 @@
 #include <X11/extensions/shape.h>
 #include <X11/extensions/XTest.h>
 #include <QtX11Extras/QX11Info>
-
+#include "getwmname.h"
 //New 2 variable to make a gesture status change event
 int CTRL_c;
 int CTRL_p;
@@ -38,6 +38,9 @@ ctrl::ctrl(QWidget *parent) :
 
     //XTestFakeMotionEvent(QX11Info::display(),-1,1920,1000,0);
 
+    //GetWMName
+    int g = GetWMName();
+    std::cout<<g<<std::endl;
 
 }
 
