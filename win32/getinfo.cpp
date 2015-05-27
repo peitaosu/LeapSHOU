@@ -60,7 +60,7 @@ void GetInfo::getFGWinName(){
 
         BW_CLKWS = 0;
         BW_ATCLKWS = 0;
-        BW_LINK = 0;
-        BW_TAB = 0;
+        //BW_LINK = 0;
+        //BW_TAB = 0;
     }
 }

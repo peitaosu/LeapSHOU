@@ -29,44 +29,16 @@ void SysCtrl::SendWM(){
         if(BW_ATCLKWS){
             mouse_event(MOUSEEVENTF_WHEEL, 0, 0, 5, 0);
         }
-        break;
+        //break;
     }
     case 30:{
         if(BW_CLKWS || BW_ATCLKWS){
             mouse_event(MOUSEEVENTF_WHEEL, 0, 0, 0, 0);
         }
-        break;
+        //break;
     }
-    //One Hand Pinch
-    case 111:{
-        std::cout<<"CLICK"<<std::endl;
-        if(BW_LINK){
-            mouse_event(MOUSEEVENTF_MOVE|MOUSEEVENTF_ABSOLUTE,mouse_x,mouse_y,0,0);
-            mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP,0,0, 0, 0 );
-            mouse_event(MOUSEEVENTF_MOVE|MOUSEEVENTF_ABSOLUTE,65535,40000,0,0);
-        }
-        break;
-    }
-    case 110:{
-        if(BW_LINK){
-            //mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
-        }
-        break;
-    }
-    //TWO Hand Pinch
-    case 1111:{
-        //if(){
 
-        //}
-        break;
-    }
-    case 1110:{
-        //if(){
-
-        //}
-        break;
-    }
-        //One Hand Grab
+    //One Hand Grab
         case 131:{
         if(BW_TAB){
             keybd_event(17,0,0,0);
@@ -93,6 +65,36 @@ void SysCtrl::SendWM(){
             //}
             break;
         }
+
+    //One Hand Pinch
+    case 111:{
+        std::cout<<"CLICK"<<std::endl;
+        if(BW_LINK){
+            mouse_event(MOUSEEVENTF_MOVE|MOUSEEVENTF_ABSOLUTE,mouse_x,mouse_y,0,0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP,0,0, 0, 0 );
+            mouse_event(MOUSEEVENTF_MOVE|MOUSEEVENTF_ABSOLUTE,65535,40000,0,0);
+        }
+        break;
+    }
+    case 110:{
+        if(BW_LINK){
+            //mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
+        }
+        //break;
+    }
+    //TWO Hand Pinch
+    case 1111:{
+        //if(){
+
+        //}
+        break;
+    }
+    case 1110:{
+        //if(){
+
+        //}
+        break;
+    }
 
 
     }

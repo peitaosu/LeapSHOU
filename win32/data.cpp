@@ -171,7 +171,7 @@ void dataListener::onFrame(const Controller & controller){
     if(hands.count()==1){
         //One Hand Pinch Gesture
         PinchPrv = PinchCrt;
-        if(frame.hands()[0].pinchStrength()>0.95){
+        if(frame.hands()[0].pinchStrength()>=0.9){
             PinchCrt = 1;
         }else{
             PinchCrt = 0;
@@ -180,12 +180,12 @@ void dataListener::onFrame(const Controller & controller){
             GesList.push_back(111);
         }else if(PinchCrt == 0 && PinchPrv == 1){
             GesList.push_back(110);
-        }else{
+        }else if(PinchCrt == 1 && PinchPrv == 1){
             GesList.push_back(112);
         }
         //One Hand Grab Gesture
         GrabPrv = GrabCrt;
-        if(frame.hands()[0].grabStrength()>0.95){
+        if(frame.hands()[0].grabStrength()>=0.9){
             GrabCrt = 1;
         }else{
             GrabCrt = 0;
@@ -194,13 +194,13 @@ void dataListener::onFrame(const Controller & controller){
             GesList.push_back(131);
         }else if(GrabCrt == 0 && GrabPrv == 1){
             GesList.push_back(130);
-        }else{
+        }else if(GrabCrt == 1 && GrabPrv == 1){
             GesList.push_back(132);
         }
     }else if(hands.count()==2){
         //Two Hand Pinch Gesture
         PinchPrvD = PinchCrtD;
-        if(frame.hands()[0].pinchStrength()>0.95 && frame.hands()[1].pinchStrength()>0.95){
+        if(frame.hands()[0].pinchStrength()>=0.9 && frame.hands()[1].pinchStrength()>=0.9){
             PinchCrtD = 1;
         }else{
             PinchCrtD = 0;
@@ -212,7 +212,7 @@ void dataListener::onFrame(const Controller & controller){
         }
         //Two Hand Grab Gesture
         GrabPrvD = GrabCrtD;
-        if(frame.hands()[0].grabStrength()>0.95 && frame.hands()[1].grabStrength()>0.95){
+        if(frame.hands()[0].grabStrength()>=0.9 && frame.hands()[1].grabStrength()>=0.9){
             GrabCrtD = 1;
         }else{
             GrabCrtD = 0;
@@ -283,7 +283,7 @@ void dataListener::onFrame(const Controller & controller){
             }
         }else{
             /******/
-            switch(gesStatus){
+            switch(Ges){
             case 123:
                 gesStatus = 123;
                 //std::cout<<123<<std::endl;
@@ -319,11 +319,11 @@ void dataListener::onFrame(const Controller & controller){
             if (circle.pointable().direction().angleTo(circle.normal()) <= PI/2) {
                 clockwiseness = "clockwise";
                 //std::cout<<"clockwise"<<std::endl;
-                gesStatus = 31;
+                //gesStatus = 31;
 
             } else {
                 clockwiseness = "counterclockwise";
-                gesStatus = 32;
+                //gesStatus = 32;
                 //std::cout<<"ATclockwise"<<std::endl;
 
             }
@@ -334,7 +334,7 @@ void dataListener::onFrame(const Controller & controller){
                 CircleGesture previousUpdate = CircleGesture(controller.frame(1).gesture(circle.id()));
                 sweptAngle = (circle.progress() - previousUpdate.progress()) * 2 * PI;
             }else{
-                gesStatus = 30;
+                //gesStatus = 30;
             }
             //Status = 10;
             break;
