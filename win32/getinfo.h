@@ -1,6 +1,6 @@
 #ifndef GETINFO_H
 #define GETINFO_H
-#include <QWidget>
+#include <QObject>
 class GetInfo : public QObject
 {
     Q_OBJECT

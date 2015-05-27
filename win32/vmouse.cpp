@@ -54,7 +54,7 @@ void vmouse::paintEvent(QPaintEvent *event){
     painter.setBrush(QBrush(QColor(00,160,255,200)));
 
     //Draw Ellipse, size is 50*50, position is (screen_x - 25, screen_y - 25)
-    painter.drawEllipse(screen_x-25 ,screen_y-25,50,50);
+    painter.drawEllipse(screen_x-15 ,screen_y-15,30,30);
 
     //Move the RealMouse use screen position (screen_x,screen_y)
     //XTestFakeMotionEvent(QX11Info::display(),-1,screen_x,screen_y,0);

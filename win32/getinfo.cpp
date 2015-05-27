@@ -22,7 +22,7 @@ GetInfo::GetInfo()
 
     QTimer *CheckFGWinNameTimer = new QTimer(this);
     connect(CheckFGWinNameTimer,SIGNAL(timeout()),this,SLOT(getFGWinName()));
-    CheckFGWinNameTimer->start(1000);
+    CheckFGWinNameTimer->start(50);
 
 }
 
@@ -45,10 +45,12 @@ void GetInfo::getFGWinName(){
 
         V_CTRL = 0;
         V_MOUSE = 0;
+        DESKTOP = 0;
     }else if(wcsstr(buf, DT)){
         std::wcout << "DT!" << std::endl;
         //
         V_CTRL = 1;
+        DESKTOP = 1;
     }else if(wcsstr(buf, PC)){
         std::wcout << "PC!" << std::endl;
         //

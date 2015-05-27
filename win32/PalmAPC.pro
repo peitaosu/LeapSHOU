@@ -16,14 +16,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
     data.cpp \
     vmouse.cpp \
-    getinfo.cpp
+    getinfo.cpp \
+    sysctrl.cpp
 
 HEADERS  += \
     header/Leap.h \
     data.h \
     header/fit.h \
     vmouse.h \
-    getinfo.h
+    getinfo.h \
+    sysctrl.h
 
 FORMS    += \
     vmouse.ui

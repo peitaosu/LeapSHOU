@@ -34,6 +34,9 @@ extern bool D_MINISIZE;
 extern bool D_MAXSIZE;
 extern bool D_SWITCH;
 
+extern bool DESKTOP;
+extern bool BW;
+
 extern int Status;
 extern int gesStatus;
 extern int mouse_x;
