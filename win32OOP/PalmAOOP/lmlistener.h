@@ -18,8 +18,15 @@ public:
     virtual void onDeviceChange(const Controller&);
     enum GSTATE{GSTART=1,GCONTINUE=2,GSTOP=0};
 
+
+    float getHandCenterX(const Controller &);
+    float getHandCenterY(const Controller &);
+    float getHandCenterZ(const Controller &);
+
     friend class VMouse;
 private:
+    Leap::Vector handCenter;
+
     float handCenter_x;
     float handCenter_y;
     float handCenter_z;

@@ -29,12 +29,11 @@ void LMListener::onFrame(const Controller& controller){
     InteractionBox iBox = controller.frame().interactionBox();
     //HandList hands = frame.hands();
     Hand FirstHand = frame.hands()[0];
-    Vector handCenter = iBox.normalizePoint(FirstHand.stabilizedPalmPosition());
-    handCenter_x = handCenter.x;
-    handCenter_y = handCenter.y;
-    handCenter_z = handCenter.z;
-    //std::cout<<handCenter_x<<","<<handCenter_y<<","<<handCenter_z<<std::endl;
-
+//    handCenter = iBox.normalizePoint(FirstHand.stabilizedPalmPosition());
+//    handCenter_x = handCenter.x;
+//    handCenter_y = handCenter.y;
+//    handCenter_z = handCenter.z;
+//    std::cout<<handCenter_x<<","<<handCenter_y<<","<<handCenter_z<<std::endl;
 
 }
 
@@ -48,4 +47,19 @@ void LMListener::onFocusLost(const Controller& controller){
 
 void LMListener::onDeviceChange(const Controller& controller){
 
+}
+
+float LMListener::getHandCenterX(const Controller& controller){
+    handCenter = controller.frame().interactionBox().normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition());
+    return handCenter.x;
+}
+
+float LMListener::getHandCenterY(const Controller& controller){
+    handCenter = controller.frame().interactionBox().normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition());
+    return handCenter.y;
+}
+
+float LMListener::getHandCenterZ(const Controller& controller){
+    handCenter = controller.frame().interactionBox().normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition());
+    return handCenter.z;
 }

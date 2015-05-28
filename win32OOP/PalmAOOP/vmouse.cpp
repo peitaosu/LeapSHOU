@@ -27,10 +27,6 @@ VMouse::VMouse(QWidget *parent) : QWidget(parent)
     vmouseUpdateTimer->start(20);
 
 
-//    QTimer *screenUpdateTimer = new QTimer(this);
-//    connect(screenUpdateTimer,SIGNAL(timeout()),this,SLOT(updateScreen()));
-//    screenUpdateTimer->start(20);
-
 
 
 }
@@ -40,21 +36,14 @@ VMouse::~VMouse()
 
 }
 void VMouse::updateMouse(){
-    VMouse vm;
-    LMListener ls;
-    vm.mouseUpdate(ls);
-    vm.screenUpdate(ls);
-    std::cout<<ls.handCenter_x<<std::endl;
+
 }
 
-void VMouse::mouseUpdate(LMListener ls){
-    mouse_x = ls.handCenter_x*65535;
-    mouse_y = 65535 - ls.handCenter_y * 65535;
-    std::cout<<mouse_x<<","<<mouse_y<<std::endl;
+void VMouse::mouseUpdate(){
+
 }
-void VMouse::screenUpdate(LMListener ls){
-    screen_x = ls.handCenter_x*UserDeviceScreenWidth;
-    screen_y = (1-ls.handCenter_y)*UserDeviceScreenHeight;
+void VMouse::screenUpdate(){
+
 }
 void VMouse::paintEvent(QPaintEvent *event){
     //New painter
