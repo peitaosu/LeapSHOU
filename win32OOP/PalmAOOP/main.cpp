@@ -13,6 +13,9 @@ int main(int argc, char *argv[])
     LMListener listener;
     Controller controller;
     controller.addListener(listener);
+    //listener.getFrameID(controller);
+
+    listener.getVector(controller);
 
 
     return a.exec();

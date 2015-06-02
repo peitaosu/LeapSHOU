@@ -3,7 +3,7 @@
 #include "header/Leap.h"
 #include "vmouse.h"
 using namespace Leap;
-class LMListener : public Listener
+class LMListener : public QObject,public Listener
 {
 public:
     virtual void onInit(const Controller&);
@@ -17,16 +17,17 @@ public:
     virtual void onFocusLost(const Controller&);
     virtual void onDeviceChange(const Controller&);
     enum GSTATE{GSTART=1,GCONTINUE=2,GSTOP=0};
+    void getFrameID(const Controller&);
+    void getVector(const Controller&);
 
     friend class VMouse;
 private:
-    float handCenter_x;
-    float handCenter_y;
-    float handCenter_z;
+    Vector handCenter;
     GSTATE GGrab;
     GSTATE GCircle;
     GSTATE GDirection;
     GSTATE GHold;
+    
 
 
 };

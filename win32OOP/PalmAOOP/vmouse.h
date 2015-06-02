@@ -3,21 +3,20 @@
 
 #include <QWidget>
 #include "lmlistener.h"
+
 class LMListener;
+
 class VMouse : public QWidget
 {
     Q_OBJECT
 public:
     explicit VMouse(QWidget *parent = 0);
     ~VMouse();
-    //LMListener listener;
-    void mouseUpdate(LMListener ls);
-    void screenUpdate(LMListener ls);
+
 
 signals:
 
 public slots:
-    void updateMouse();
     void paintEvent(QPaintEvent *event);
 private:
 
@@ -27,6 +26,8 @@ private:
     int screen_y;
     int UserDeviceScreenWidth;
     int UserDeviceScreenHeight;
+
+
 
 
 

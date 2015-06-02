@@ -24,15 +24,26 @@ void LMListener::onExit(const Controller& controller){
 
 }
 
+void LMListener::getFrameID(const Controller& controller){
+    std::cout<<controller.frame().id()<<std::endl;
+}
+void LMListener::getVector(const Controller& controller){
+    while(true){
+        handCenter = controller.frame().interactionBox().normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition());
+        std::cout<<handCenter.x<<std::endl;
+    }
+
+}
+
 void LMListener::onFrame(const Controller& controller){
     const Frame frame = controller.frame();
     InteractionBox iBox = controller.frame().interactionBox();
     //HandList hands = frame.hands();
     Hand FirstHand = frame.hands()[0];
     Vector handCenter = iBox.normalizePoint(FirstHand.stabilizedPalmPosition());
-    handCenter_x = handCenter.x;
-    handCenter_y = handCenter.y;
-    handCenter_z = handCenter.z;
+//    handCenter_x = handCenter.x;
+//    handCenter_y = handCenter.y;
+//    handCenter_z = handCenter.z;
     //std::cout<<handCenter_x<<","<<handCenter_y<<","<<handCenter_z<<std::endl;
 
 
