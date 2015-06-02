@@ -20,9 +20,22 @@ public:
     void getFrameID(const Controller&);
     void getVector(const Controller&);
 
+
+    float getHandCenterX(const Controller &);
+    float getHandCenterY(const Controller &);
+    float getHandCenterZ(const Controller &);
+
     friend class VMouse;
 private:
+<<<<<<< HEAD
     Vector handCenter;
+=======
+    Leap::Vector handCenter;
+
+    float handCenter_x;
+    float handCenter_y;
+    float handCenter_z;
+>>>>>>> origin/master
     GSTATE GGrab;
     GSTATE GCircle;
     GSTATE GDirection;

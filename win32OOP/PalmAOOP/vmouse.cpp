@@ -22,6 +22,14 @@ VMouse::VMouse(QWidget *parent) : QWidget(parent)
     QTimer *vmousePaintTimer = new QTimer(this);
     connect(vmousePaintTimer,SIGNAL(timeout()),this,SLOT(update()));
     vmousePaintTimer->start(20);
+<<<<<<< HEAD
+=======
+    QTimer *vmouseUpdateTimer = new QTimer(this);
+    connect(vmouseUpdateTimer,SIGNAL(timeout()),this,SLOT(updateMouse()));
+    vmouseUpdateTimer->start(20);
+
+
+>>>>>>> origin/master
 
 
 }
@@ -30,7 +38,20 @@ VMouse::~VMouse()
 {
 
 }
+<<<<<<< HEAD
 
+=======
+void VMouse::updateMouse(){
+
+}
+
+void VMouse::mouseUpdate(){
+
+}
+void VMouse::screenUpdate(){
+
+}
+>>>>>>> origin/master
 void VMouse::paintEvent(QPaintEvent *event){
     //New painter
     QPainter painter(this);

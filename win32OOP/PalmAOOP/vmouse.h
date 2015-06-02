@@ -3,16 +3,24 @@
 
 #include <QWidget>
 #include "lmlistener.h"
+<<<<<<< HEAD
 
 class LMListener;
 
+=======
+>>>>>>> origin/master
 class VMouse : public QWidget
 {
     Q_OBJECT
 public:
     explicit VMouse(QWidget *parent = 0);
     ~VMouse();
+<<<<<<< HEAD
 
+=======
+    void mouseUpdate();
+    void screenUpdate();
+>>>>>>> origin/master
 
 signals:
 
