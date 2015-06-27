@@ -1,4 +1,5 @@
 #include "vmouse.h"
+#include "ui_vmouse.h"
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QPalette>
@@ -8,8 +9,12 @@
 #include <QTimer>
 #include <Windows.h>
 #include <iostream>
-VMouse::VMouse(QWidget *parent) : QWidget(parent)
+VMouse::VMouse(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::VMouse)
 {
+    ui->setupUi(this);
+
     UserDeviceScreenWidth = QApplication::desktop()->width();
     UserDeviceScreenHeight= QApplication::desktop()->height();
 
@@ -22,30 +27,20 @@ VMouse::VMouse(QWidget *parent) : QWidget(parent)
     QTimer *vmousePaintTimer = new QTimer(this);
     connect(vmousePaintTimer,SIGNAL(timeout()),this,SLOT(update()));
     vmousePaintTimer->start(20);
-    QTimer *vmouseUpdateTimer = new QTimer(this);
-    connect(vmouseUpdateTimer,SIGNAL(timeout()),this,SLOT(updateMouse()));
-    vmouseUpdateTimer->start(20);
-
-
 
 
 }
 
 VMouse::~VMouse()
 {
-
-}
-void VMouse::updateMouse(){
-
+    delete ui;
 }
 
-void VMouse::mouseUpdate(){
-
-}
-void VMouse::screenUpdate(){
-
-}
 void VMouse::paintEvent(QPaintEvent *event){
+    iBox = controller.frame().interactionBox();
+    screen_x = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).x * UserDeviceScreenWidth;
+    screen_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * UserDeviceScreenWidth;
+
     //New painter
     QPainter painter(this);
 
@@ -59,5 +54,4 @@ void VMouse::paintEvent(QPaintEvent *event){
     //Draw Ellipse, size is 50*50, position is (screen_x - 25, screen_y - 25)
     painter.drawEllipse(screen_x-15 ,screen_y-15,30,30);
 }
-
 

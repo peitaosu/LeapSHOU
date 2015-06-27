@@ -13,21 +13,20 @@ TARGET = PalmAOOP
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        gestureshow.cpp \
-    vmouse.cpp \
-    lmlistener.cpp \
-    control.cpp \
-    fgwinlistener.cpp
+SOURCES += main.cpp \
+    gesturerecognition.cpp \
+    debug.cpp \
+    vmouse.cpp
 
-HEADERS  += gestureshow.h \
+HEADERS  += \
     header/Leap.h \
-    vmouse.h \
-    lmlistener.h \
-    control.h \
-    fgwinlistener.h
+    gesturerecognition.h \
+    debug.h \
+    header/fit.h \
+    vmouse.h
 
-FORMS    += gestureshow.ui
+FORMS    += \
+    vmouse.ui
 
 unix|win32: LIBS += -L$$PWD/lib/x64/ -lLeap
 
