@@ -49,3 +49,6 @@ unix|win32: LIBS += -L$$PWD/lib/x64/ -lLeap
 
 INCLUDEPATH += $$PWD/lib/x64
 DEPENDPATH += $$PWD/lib/x64
+
+RESOURCES += \
+    pngs.qrc

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>png/turntable.png</file>
+        <file>png/turntable-320.png</file>
+    </qresource>
+</RCC>

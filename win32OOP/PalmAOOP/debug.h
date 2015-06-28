@@ -8,6 +8,7 @@
 #include "operate.h"
 #include "display.h"
 #include "displaystatus.h"
+#include "displayturntable.h"
 #include "lmlistenner.h"
 class debug : public QObject
 {
@@ -29,6 +30,7 @@ private:
     DisplayStatus DS;
     Leap::Controller controller;
     LMListenner listenner;
+    DisplayTurntable DT;
 };
 
 #endif // DEBUG_H

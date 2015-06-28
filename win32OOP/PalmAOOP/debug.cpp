@@ -13,6 +13,8 @@ debug::debug(QObject *parent) :
     VM.show();
     DP.show();
     DS.show();
+    DT.setGeometry(500,500,320,320);
+    DT.show();
 //    DS.setStatusDisplay(1);
 //    DP.DTTurntableChange(100,100,600,600,1);
 //    DP.DTTurntableShow();
