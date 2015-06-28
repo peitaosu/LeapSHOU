@@ -20,7 +20,10 @@ SOURCES += main.cpp \
     fgwin.cpp \
     operate.cpp \
     display.cpp \
-    displayturntable.cpp
+    displayturntable.cpp \
+    eventcontrol.cpp \
+    lmlistenner.cpp \
+    displaystatus.cpp
 
 HEADERS  += \
     header/Leap.h \
@@ -31,12 +34,16 @@ HEADERS  += \
     fgwin.h \
     operate.h \
     display.h \
-    displayturntable.h
+    displayturntable.h \
+    eventcontrol.h \
+    lmlistenner.h \
+    displaystatus.h
 
 FORMS    += \
     vmouse.ui \
     display.ui \
-    displayturntable.ui
+    displayturntable.ui \
+    displaystatus.ui
 
 unix|win32: LIBS += -L$$PWD/lib/x64/ -lLeap
 

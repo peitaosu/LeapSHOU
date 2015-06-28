@@ -7,6 +7,8 @@
 #include "fgwin.h"
 #include "operate.h"
 #include "display.h"
+#include "displaystatus.h"
+#include "lmlistenner.h"
 class debug : public QObject
 {
     Q_OBJECT
@@ -24,7 +26,9 @@ private:
     FGWin FGW;
     //Operate OP;
     Display DP;
-
+    DisplayStatus DS;
+    Leap::Controller controller;
+    LMListenner listenner;
 };
 
 #endif // DEBUG_H

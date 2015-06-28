@@ -12,10 +12,15 @@ debug::debug(QObject *parent) :
 //    debugTimer->start(1000);
     VM.show();
     DP.show();
-    DP.DTTurntableChange(100,100,600,600,1);
-    DP.DTTurntableShow();
+    DS.show();
+//    DS.setStatusDisplay(1);
+//    DP.DTTurntableChange(100,100,600,600,1);
+//    DP.DTTurntableShow();
 
 //    DP.DTTurntableHide();
+
+
+    controller.addListener(listenner);
 }
 
 void debug::debugcout(){
