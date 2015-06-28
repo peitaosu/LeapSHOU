@@ -39,7 +39,7 @@ VMouse::~VMouse()
 void VMouse::paintEvent(QPaintEvent *event){
     iBox = controller.frame().interactionBox();
     screen_x = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).x * UserDeviceScreenWidth;
-    screen_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * UserDeviceScreenWidth;
+    screen_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * UserDeviceScreenHeight;
 
     //New painter
     QPainter painter(this);

@@ -16,17 +16,27 @@ TEMPLATE = app
 SOURCES += main.cpp \
     gesturerecognition.cpp \
     debug.cpp \
-    vmouse.cpp
+    vmouse.cpp \
+    fgwin.cpp \
+    operate.cpp \
+    display.cpp \
+    displayturntable.cpp
 
 HEADERS  += \
     header/Leap.h \
     gesturerecognition.h \
     debug.h \
     header/fit.h \
-    vmouse.h
+    vmouse.h \
+    fgwin.h \
+    operate.h \
+    display.h \
+    displayturntable.h
 
 FORMS    += \
-    vmouse.ui
+    vmouse.ui \
+    display.ui \
+    displayturntable.ui
 
 unix|win32: LIBS += -L$$PWD/lib/x64/ -lLeap
 
