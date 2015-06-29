@@ -26,7 +26,7 @@ void LMListenner::onExit(const Leap::Controller & controller){
     Status[2] = 0;
 }
 void LMListenner::onFrame(const Leap::Controller & controller){
-    std::cout << "OnFrame"<< std::endl;
+    //std::cout << "OnFrame"<< std::endl;
     Status[2] = 1;
 }
 void LMListenner::onDeviceChange(const Leap::Controller & controller){

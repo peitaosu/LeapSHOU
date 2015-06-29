@@ -16,11 +16,15 @@ public slots:
     void MouseLeftClick(int,int);
     void MouseLeftDClick(int,int);
     void MouseRightClick(int,int);
+    void MouseWheel();
+    void MouseWheelN();
     void MouseWheel(int);
+    void MouseWheelStop();
     void showDesktop();
     void openFileManager();
     void swipeWindow();
     void swipeWindow(int);
+    void swipeBrowserTab();
 
 
 };

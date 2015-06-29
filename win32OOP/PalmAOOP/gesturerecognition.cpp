@@ -128,6 +128,10 @@ int GestureRecognition::gesHoldRight(){
     }
     if(RHold[0] == 1 && RHold[1] == 1 && RHold[2] == 1){
         return 3;
+        RHold[0] = 0;
+        RHold[1] = 0;
+        RHold[2] = 0;
+        RhCount = 0;
     }else if(RHold[0] == 1 && RHold[1] == 1 && RHold[2] == 0){
         return 2;
     }else if(RHold[0] == 1 && RHold[1] == 0 && RHold[2] == 0){
@@ -232,7 +236,25 @@ bool GestureRecognition::gesGrabDouble(){
 bool GestureRecognition::gesCircle(){
     Leap::Gesture gesture = controller.frame().gestures()[0];
     if(gesture.type() == Leap::Gesture::TYPE_CIRCLE) {
-        return 1;
+        Leap::CircleGesture circle = gesture;
+        if (circle.pointable().direction().angleTo(circle.normal()) <= 3.1415926/2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }else{
+        return 0;
+    }
+}
+bool GestureRecognition::gesCircleAnti(){
+    Leap::Gesture gesture = controller.frame().gestures()[0];
+    if(gesture.type() == Leap::Gesture::TYPE_CIRCLE) {
+        Leap::CircleGesture circle = gesture;
+        if (circle.pointable().direction().angleTo(circle.normal()) <= 3.1415926/2) {
+            return 0;
+        } else {
+            return 1;
+        }
     }else{
         return 0;
     }

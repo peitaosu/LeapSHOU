@@ -64,5 +64,5 @@ void DisplayStatus::setStatusDisplay(){
     if(Status[0] && Status[1] && Status[2]){
         this->setStyleSheet("#frame_status1{background-color: rgb(0, 240, 0);}#frame_status2{background-color: rgb(0, 240, 0);}#frame_status3{background-color: rgb(0, 240, 0);}");
     }
-    std::cout<<Status[0]<<Status[1]<<Status[2]<<std::endl;
+    //std::cout<<Status[0]<<Status[1]<<Status[2]<<std::endl;
 }

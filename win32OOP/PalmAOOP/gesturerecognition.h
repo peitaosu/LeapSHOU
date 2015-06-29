@@ -25,6 +25,7 @@ public:
     bool gesGrabDouble();
 
     bool gesCircle();
+    bool gesCircleAnti();
     bool gesSwipe();
     bool gesKeyTap();
     bool gesScreenTap();
