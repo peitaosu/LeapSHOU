@@ -34,10 +34,23 @@ signals:
     void circleAntiKeep();
     void circleAntiStop();
 
+    void handLeft();
+    void handRight();
+    void handUp();
+    void handDown();
+    void handForward();
+    void handBackward();
+
+
     void desktopS();
     void browserS();
     void pcS();
     void otherS();
+
+    void turntableUp();
+    void turntableDown();
+    void turntableLeft();
+    void turntableRight();
 
 public slots:
     void EventListenner();
@@ -50,6 +63,9 @@ public slots:
 
     void MouseLeftClick();
     void MouseLeftDClick();
+
+    void showDT();
+    void hideDT();
 private:
 
     Leap::Controller controller;

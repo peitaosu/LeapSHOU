@@ -30,6 +30,7 @@ public:
     bool gesKeyTap();
     bool gesScreenTap();
 
+    int gesHandDirection();
 private:
     Leap::Controller controller;
 

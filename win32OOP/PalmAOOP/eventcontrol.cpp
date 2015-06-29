@@ -1,6 +1,7 @@
 #include "eventcontrol.h"
 #include <QTimer>
-
+#include <QApplication>
+#include <QDesktopWidget>
 #define ON 0
 #define START 1
 #define KEEP 2
@@ -13,7 +14,8 @@ int GestureStatus[GESMAX] = {0};
 bool GestureStatusPrev[GESMAX] = {0};
 bool GestureStatusCrt[GESMAX] ={0};
 int FGWPrev = -1;
-
+int delay = 0;
+int Turntable[2] = {0};
 EventControl::EventControl(QObject *parent) :
     QObject(parent)
 {
@@ -24,6 +26,7 @@ EventControl::EventControl(QObject *parent) :
      DS.show();
 
      OP = new Operate(this);
+
      QTimer *EventTimer = new QTimer(this);
      connect(EventTimer,SIGNAL(timeout()),this,SLOT(EventListenner()));
      EventTimer->start(20);
@@ -158,6 +161,31 @@ void EventControl::EventListenner(){
     default:
         break;
     }
+    if(delay%500 == 0){
+        switch(GR.gesHandDirection()){
+        case 1:
+            emit handLeft();
+            break;
+        case 2:
+            emit handRight();
+            break;
+        case 3:
+            emit handUp();
+            break;
+        case 4:
+            emit handDown();
+            break;
+        case 5:
+            emit handForward();
+            break;
+        case 6:
+            emit handBackward();
+            break;
+        default:
+            break;
+        }
+        delay++;
+    }
 
 }
 
@@ -173,6 +201,9 @@ void EventControl::desktop(){
     disconnect(this,SIGNAL(holdDone()),0,0);
     //disconnect(this,0,0,0);
     connect(this,SIGNAL(grabStart()),OP,SLOT(swipeWindow()));
+    connect(this,SIGNAL(pinchStart()),this,SLOT(showDT()));
+    connect(this,SIGNAL(pinchStop()),this,SLOT(hideDT()));
+    connect(this,SIGNAL(turntableUp()),OP,SLOT(openFileManager()));
 
 }
 void EventControl::browser(){
@@ -239,4 +270,47 @@ void EventControl::MouseLeftDClick(){
     OP->MouseLeftDClick(mouse_x,mouse_y);
 }
 
+void EventControl::showDT(){
+    Leap::InteractionBox iBox = controller.frame().interactionBox();
+    int DT_x = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).x * QApplication::desktop()->width() -160;
+    int DT_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * QApplication::desktop()->height() -160;
+    Turntable[0] = DT_x;
+    Turntable[1] = DT_y;
+    DT.showDisplayTurntable(DT_x,DT_y);
+}
+
+void EventControl::hideDT(){
+    Leap::InteractionBox iBox = controller.frame().interactionBox();
+    int DT_x = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).x * QApplication::desktop()->width() -160;
+    int DT_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * QApplication::desktop()->height() -160;
+    if(Turntable[0] != 0){
+        float slope = (DT_y - Turntable[1])/(DT_x - Turntable[0]);
+        int Horizontal,Vertical;
+        if(DT_x - Turntable[0] >= 0){
+            Horizontal = 1;
+        }else{
+            Horizontal = -1;
+        }
+        if(DT_y - Turntable[1] >= 0){
+            Vertical = 1;
+        }else{
+            Vertical = -1;
+        }
+
+        if(slope >= 1 || slope <= -1){
+            if(Vertical = 1){
+                emit turntableUp();
+            }else if(Vertical = -1){
+                emit turntableDown();
+            }
+        }else{
+            if(Horizontal = 1){
+                emit turntableRight();
+            }else if(Horizontal = -1){
+                emit turntableLeft();
+            }
+        }
+    }
+    DT.hide();
+}
 

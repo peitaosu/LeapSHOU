@@ -16,6 +16,9 @@ public:
     ~DisplayTurntable();
     void paintEvent(QPaintEvent *event) ;
 
+public slots:
+    void showDisplayTurntable(int, int);
+
 private:
     Ui::DisplayTurntable *ui;
     QPixmap m_Pixmap;

@@ -39,3 +39,9 @@ void DisplayTurntable::paintEvent(QPaintEvent *event){
     bgPalette.setBrush(QPalette::Background,m_Pixmap);
     this->setPalette(bgPalette);
 }
+
+void DisplayTurntable::showDisplayTurntable(int x,int y){
+    this->setGeometry(x,y,400,400);
+    this->show();
+}
+
