@@ -10,6 +10,7 @@
 #include "displaystatus.h"
 #include "displayturntable.h"
 #include "lmlistenner.h"
+#include "lmengineeringmodel.h"
 class debug : public QObject
 {
     Q_OBJECT
@@ -31,6 +32,7 @@ private:
     Leap::Controller controller;
     LMListenner listenner;
     DisplayTurntable DT;
+    LMEngineeringModel LMEM;
 };
 
 #endif // DEBUG_H

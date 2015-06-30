@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     eventcontrol.cpp \
     lmlistenner.cpp \
     displaystatus.cpp \
-    displaymouseline.cpp
+    displaymouseline.cpp \
+    lmengineeringmodel.cpp
 
 HEADERS  += \
     header/Leap.h \
@@ -39,14 +40,16 @@ HEADERS  += \
     eventcontrol.h \
     lmlistenner.h \
     displaystatus.h \
-    displaymouseline.h
+    displaymouseline.h \
+    lmengineeringmodel.h
 
 FORMS    += \
     vmouse.ui \
     display.ui \
     displayturntable.ui \
     displaystatus.ui \
-    displaymouseline.ui
+    displaymouseline.ui \
+    lmengineeringmodel.ui
 
 unix|win32: LIBS += -L$$PWD/lib/x64/ -lLeap
 

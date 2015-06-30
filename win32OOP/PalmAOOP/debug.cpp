@@ -20,6 +20,7 @@ debug::debug(QObject *parent) :
 //    DP.DTTurntableShow();
 
 //    DP.DTTurntableHide();
+    LMEM.show();
 
 
     controller.addListener(listenner);
