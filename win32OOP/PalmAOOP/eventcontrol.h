@@ -11,7 +11,7 @@
 #include "display.h"
 #include "displaystatus.h"
 #include "displayturntable.h"
-
+#include "displaymouseline.h"
 class EventControl : public QObject
 {
     Q_OBJECT
@@ -52,6 +52,8 @@ signals:
     void turntableLeft();
     void turntableRight();
 
+    void disconnectAllS();
+
 public slots:
     void EventListenner();
 
@@ -66,6 +68,9 @@ public slots:
 
     void showDT();
     void hideDT();
+
+    void disconnectAll();
+
 private:
 
     Leap::Controller controller;
@@ -77,8 +82,9 @@ private:
     Display DP;
     DisplayStatus DS;
     DisplayTurntable DT;
-
+    DisplayMouseLine DML;
 };
 
+extern int Turntable[2];
 
 #endif // EVENTCONTROL_H

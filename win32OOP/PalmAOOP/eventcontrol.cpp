@@ -24,7 +24,7 @@ EventControl::EventControl(QObject *parent) :
      VM.show();
      DP.show();
      DS.show();
-
+     DML.show();
      OP = new Operate(this);
 
      QTimer *EventTimer = new QTimer(this);
@@ -35,10 +35,16 @@ EventControl::EventControl(QObject *parent) :
      connect(this,SIGNAL(browserS()),this,SLOT(browser()));
      connect(this,SIGNAL(pcS()),this,SLOT(pc()));
      connect(this,SIGNAL(otherS()),this,SLOT(other()));
-
+     connect(this,SIGNAL(disconnectAllS()),this,SLOT(disconnectAll()));
+     connect(this,SIGNAL(handDown()),OP,SLOT(showDesktop()));
 }
 
 void EventControl::EventListenner(){
+    if(Turntable[0] != 0){
+        DML.setLine(Turntable[0],Turntable[1],GR.getX(),GR.getY());
+    }else{
+        DML.setLine(0,0,0,0);
+    }
     //std::cout<<FGW.getFGWinName()<<std::endl;
 
     if(FGW.getFGWinName() != FGWPrev){
@@ -161,36 +167,63 @@ void EventControl::EventListenner(){
     default:
         break;
     }
-    if(delay%500 == 0){
+    if(delay%10 == 0){
+        //std::cout<<GR.gesHandDirection()<<std::endl;
         switch(GR.gesHandDirection()){
         case 1:
             emit handLeft();
+            std::cout<<"LEFT"<<std::endl;
             break;
         case 2:
             emit handRight();
+            std::cout<<"RIGHT"<<std::endl;
             break;
         case 3:
             emit handUp();
+            std::cout<<"UP"<<std::endl;
             break;
         case 4:
             emit handDown();
+            std::cout<<"DOWN"<<std::endl;
             break;
         case 5:
             emit handForward();
+            std::cout<<"FWARD"<<std::endl;
             break;
         case 6:
             emit handBackward();
+            std::cout<<"BWARD"<<std::endl;
             break;
         default:
             break;
         }
-        delay++;
+
     }
+    delay++;
 
 }
 
 
 void EventControl::desktop(){
+    emit disconnectAllS();
+    connect(this,SIGNAL(grabStart()),OP,SLOT(swipeWindow()));
+    connect(this,SIGNAL(pinchStart()),this,SLOT(showDT()));
+    connect(this,SIGNAL(pinchStop()),this,SLOT(hideDT()));
+    connect(this,SIGNAL(turntableUp()),OP,SLOT(openFileManager()));
+
+}
+void EventControl::browser(){
+    emit disconnectAllS();
+
+}
+void EventControl::pc(){
+    emit disconnectAllS();
+}
+void EventControl::other(){
+    emit disconnectAllS();
+}
+
+void EventControl::disconnectAll(){
     disconnect(this,SIGNAL(circleStart()),0,0);
     disconnect(this,SIGNAL(circleKeep()),0,0);
     disconnect(this,SIGNAL(circleStop()),0,0);
@@ -199,61 +232,14 @@ void EventControl::desktop(){
     disconnect(this,SIGNAL(circleAntiStop()),0,0);
     disconnect(this,SIGNAL(pinchStart()),0,0);
     disconnect(this,SIGNAL(pinchStop()),0,0);
+    disconnect(this,SIGNAL(grabStart()),0,0);
+    disconnect(this,SIGNAL(grabStop()),0,0);
+    disconnect(this,SIGNAL(holdDone()),0,0);
     disconnect(this,SIGNAL(turntableUp()),0,0);
-    disconnect(this,SIGNAL(holdDone()),0,0);
-    //disconnect(this,0,0,0);
-    connect(this,SIGNAL(grabStart()),OP,SLOT(swipeWindow()));
-    connect(this,SIGNAL(pinchStart()),this,SLOT(showDT()));
-    connect(this,SIGNAL(pinchStop()),this,SLOT(hideDT()));
-    connect(this,SIGNAL(turntableUp()),OP,SLOT(openFileManager()));
+    disconnect(this,SIGNAL(turntableDown()),0,0);
+    disconnect(this,SIGNAL(turntableLeft()),0,0);
+    disconnect(this,SIGNAL(turntableRight()),0,0);
 
-}
-void EventControl::browser(){
-    std::cout<<"BW"<<std::endl;
-    //disconnect(this,0,0,0);
-    disconnect(this,SIGNAL(circleStart()),0,0);
-    disconnect(this,SIGNAL(circleKeep()),0,0);
-    disconnect(this,SIGNAL(circleStop()),0,0);
-    disconnect(this,SIGNAL(circleAntiStart()),0,0);
-    disconnect(this,SIGNAL(circleAntiKeep()),0,0);
-    disconnect(this,SIGNAL(circleAntiStop()),0,0);
-    disconnect(this,SIGNAL(pinchStart()),0,0);
-    disconnect(this,SIGNAL(holdDone()),0,0);
-
-//    connect(this,SIGNAL(circleStart()),OP,SLOT(MouseWheel()));
-//    connect(this,SIGNAL(circleKeep()),OP,SLOT(MouseWheel()));
-//    connect(this,SIGNAL(circleStop()),OP,SLOT(MouseWheelStop()));
-//    connect(this,SIGNAL(circleAntiStart()),OP,SLOT(MouseWheelN()));
-//    connect(this,SIGNAL(circleAntiKeep()),OP,SLOT(MouseWheelN()));
-//    connect(this,SIGNAL(circleAntiStop()),OP,SLOT(MouseWheelStop()));
-//    connect(this,SIGNAL(pinchStart()),OP,SLOT(swipeBrowserTab()));
-    //connect(this,SIGNAL(grabStart()),OP,SLOT(swipeWindow()));
-    //connect(this,SIGNAL(holdDone()),this,SLOT(MouseLeftClick()));
-
-}
-void EventControl::pc(){
-    //disconnect(this,0,0,0);
-    disconnect(this,SIGNAL(circleStart()),0,0);
-    disconnect(this,SIGNAL(circleKeep()),0,0);
-    disconnect(this,SIGNAL(circleStop()),0,0);
-    disconnect(this,SIGNAL(circleAntiStart()),0,0);
-    disconnect(this,SIGNAL(circleAntiKeep()),0,0);
-    disconnect(this,SIGNAL(circleAntiStop()),0,0);
-    disconnect(this,SIGNAL(pinchStart()),0,0);
-    disconnect(this,SIGNAL(holdDone()),0,0);
-    //connect(this,SIGNAL(grabStart()),OP,SLOT(swipeWindow()));
-}
-void EventControl::other(){
-    //disconnect(this,0,0,0);
-    disconnect(this,SIGNAL(circleStart()),0,0);
-    disconnect(this,SIGNAL(circleKeep()),0,0);
-    disconnect(this,SIGNAL(circleStop()),0,0);
-    disconnect(this,SIGNAL(circleAntiStart()),0,0);
-    disconnect(this,SIGNAL(circleAntiKeep()),0,0);
-    disconnect(this,SIGNAL(circleAntiStop()),0,0);
-    disconnect(this,SIGNAL(pinchStart()),0,0);
-    disconnect(this,SIGNAL(holdDone()),0,0);
-    //connect(this,SIGNAL(circleStart()),OP,SLOT(swipeWindow()));
 }
 
 void EventControl::MouseLeftClick(){
@@ -279,13 +265,14 @@ void EventControl::showDT(){
     Turntable[0] = DT_x;
     Turntable[1] = DT_y;
     DT.showDisplayTurntable(DT_x,DT_y);
+
 }
 
 void EventControl::hideDT(){
     Leap::InteractionBox iBox = controller.frame().interactionBox();
     int DT_x = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).x * QApplication::desktop()->width() -160;
     int DT_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * QApplication::desktop()->height() -160;
-    //if(Turntable[0] != 0){
+    if(Turntable[0] != 0){
         float slope = (DT_y - Turntable[1])/(DT_x - Turntable[0]);
         int Horizontal,Vertical;
         if(DT_x - Turntable[0] >= 0){
@@ -298,7 +285,8 @@ void EventControl::hideDT(){
         }else{
             Vertical = -1;
         }
-
+        Turntable[0] = 0;
+        Turntable[1] = 0;
         if(slope >= 1 || slope <= -1){
             if(Vertical = 1){
                 emit turntableUp();
@@ -312,7 +300,7 @@ void EventControl::hideDT(){
                 emit turntableLeft();
             }
         }
-    //}
+    }
     DT.hide();
 }
 

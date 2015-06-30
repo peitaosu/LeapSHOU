@@ -27,7 +27,7 @@ float GestureRecognition::getY(){
     Leap::Vector handCenter = iBox.normalizePoint(
             controller.frame().hands()[0].stabilizedPalmPosition()
             );
-    return handCenter.y;
+    return 1-handCenter.y;
 }
 
 float GestureRecognition::getZ(){
@@ -289,24 +289,24 @@ bool GestureRecognition::gesScreenTap(){
 
 int GestureRecognition::gesHandDirection(){
     Leap::Vector handSpeed = controller.frame().fingers()[0].tipVelocity();
-    if(handSpeed.x > 1500){
+    if(handSpeed.x > 500){
         //LEFT
         return 1;
-    }else if(handSpeed.x < -1500){
+    }else if(handSpeed.x < -500){
         //RIGHT
         return 2;
     }
-    if(handSpeed.y > 1500){
+    if(handSpeed.y > 500){
         //UP
         return 3;
-    }else if(handSpeed.y < -1500){
+    }else if(handSpeed.y < -500){
         //DOWN
         return 4;
     }
-    if(handSpeed.z > 1500){
+    if(handSpeed.z > 500){
         //FORWARD
         return 5;
-    }else if(handSpeed.z < -1500){
+    }else if(handSpeed.z < -500){
         //BACKWARD
         return 6;
     }

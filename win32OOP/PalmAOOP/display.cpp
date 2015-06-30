@@ -1,9 +1,10 @@
 #include "display.h"
 #include "ui_display.h"
 #include <Windows.h>
+#include <iostream>
 #include <QApplication>
 #include <QDesktopWidget>
-#include <iostream>
+
 
 Display::Display(QWidget *parent) :
     QWidget(parent),
@@ -23,6 +24,7 @@ Display::Display(QWidget *parent) :
     SetWindowLong((HWND)winId(), GWL_EXSTYLE, GetWindowLong((HWND)winId(), GWL_EXSTYLE) |
                   WS_EX_TRANSPARENT | WS_EX_LAYERED);
 
+
 }
 
 Display::~Display()
@@ -40,3 +42,4 @@ void Display::DTTurntableChange(int x, int y, int width, int height, float Opa){
     dt.setGeometry(x,y,width,height);
     dt.setWindowOpacity(Opa);
 }
+

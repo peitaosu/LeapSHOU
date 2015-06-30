@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "displayturntable.h"
+
+
 namespace Ui {
 class Display;
 }
