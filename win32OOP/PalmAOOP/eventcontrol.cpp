@@ -198,6 +198,8 @@ void EventControl::desktop(){
     disconnect(this,SIGNAL(circleAntiKeep()),0,0);
     disconnect(this,SIGNAL(circleAntiStop()),0,0);
     disconnect(this,SIGNAL(pinchStart()),0,0);
+    disconnect(this,SIGNAL(pinchStop()),0,0);
+    disconnect(this,SIGNAL(turntableUp()),0,0);
     disconnect(this,SIGNAL(holdDone()),0,0);
     //disconnect(this,0,0,0);
     connect(this,SIGNAL(grabStart()),OP,SLOT(swipeWindow()));
@@ -218,15 +220,15 @@ void EventControl::browser(){
     disconnect(this,SIGNAL(pinchStart()),0,0);
     disconnect(this,SIGNAL(holdDone()),0,0);
 
-    connect(this,SIGNAL(circleStart()),OP,SLOT(MouseWheel()));
-    connect(this,SIGNAL(circleKeep()),OP,SLOT(MouseWheel()));
-    connect(this,SIGNAL(circleStop()),OP,SLOT(MouseWheelStop()));
-    connect(this,SIGNAL(circleAntiStart()),OP,SLOT(MouseWheelN()));
-    connect(this,SIGNAL(circleAntiKeep()),OP,SLOT(MouseWheelN()));
-    connect(this,SIGNAL(circleAntiStop()),OP,SLOT(MouseWheelStop()));
-    connect(this,SIGNAL(pinchStart()),OP,SLOT(swipeBrowserTab()));
+//    connect(this,SIGNAL(circleStart()),OP,SLOT(MouseWheel()));
+//    connect(this,SIGNAL(circleKeep()),OP,SLOT(MouseWheel()));
+//    connect(this,SIGNAL(circleStop()),OP,SLOT(MouseWheelStop()));
+//    connect(this,SIGNAL(circleAntiStart()),OP,SLOT(MouseWheelN()));
+//    connect(this,SIGNAL(circleAntiKeep()),OP,SLOT(MouseWheelN()));
+//    connect(this,SIGNAL(circleAntiStop()),OP,SLOT(MouseWheelStop()));
+//    connect(this,SIGNAL(pinchStart()),OP,SLOT(swipeBrowserTab()));
     //connect(this,SIGNAL(grabStart()),OP,SLOT(swipeWindow()));
-    connect(this,SIGNAL(holdDone()),this,SLOT(MouseLeftClick()));
+    //connect(this,SIGNAL(holdDone()),this,SLOT(MouseLeftClick()));
 
 }
 void EventControl::pc(){
@@ -239,7 +241,7 @@ void EventControl::pc(){
     disconnect(this,SIGNAL(circleAntiStop()),0,0);
     disconnect(this,SIGNAL(pinchStart()),0,0);
     disconnect(this,SIGNAL(holdDone()),0,0);
-    connect(this,SIGNAL(grabStart()),OP,SLOT(swipeWindow()));
+    //connect(this,SIGNAL(grabStart()),OP,SLOT(swipeWindow()));
 }
 void EventControl::other(){
     //disconnect(this,0,0,0);
@@ -251,7 +253,7 @@ void EventControl::other(){
     disconnect(this,SIGNAL(circleAntiStop()),0,0);
     disconnect(this,SIGNAL(pinchStart()),0,0);
     disconnect(this,SIGNAL(holdDone()),0,0);
-    connect(this,SIGNAL(circleStart()),OP,SLOT(swipeWindow()));
+    //connect(this,SIGNAL(circleStart()),OP,SLOT(swipeWindow()));
 }
 
 void EventControl::MouseLeftClick(){
@@ -283,7 +285,7 @@ void EventControl::hideDT(){
     Leap::InteractionBox iBox = controller.frame().interactionBox();
     int DT_x = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).x * QApplication::desktop()->width() -160;
     int DT_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * QApplication::desktop()->height() -160;
-    if(Turntable[0] != 0){
+    //if(Turntable[0] != 0){
         float slope = (DT_y - Turntable[1])/(DT_x - Turntable[0]);
         int Horizontal,Vertical;
         if(DT_x - Turntable[0] >= 0){
@@ -310,7 +312,7 @@ void EventControl::hideDT(){
                 emit turntableLeft();
             }
         }
-    }
+    //}
     DT.hide();
 }
 

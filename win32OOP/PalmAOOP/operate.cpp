@@ -1,5 +1,6 @@
 #include "operate.h"
 #include <Windows.h>
+#include <iostream>
 Operate::Operate(QObject *parent) :
     QObject(parent)
 {
