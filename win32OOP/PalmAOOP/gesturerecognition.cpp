@@ -289,24 +289,24 @@ bool GestureRecognition::gesScreenTap(){
 
 int GestureRecognition::gesHandDirection(){
     Leap::Vector handSpeed = controller.frame().fingers()[0].tipVelocity();
-    if(handSpeed.x > 500){
+    if(handSpeed.x > 1000){
         //LEFT
         return 1;
-    }else if(handSpeed.x < -500){
+    }else if(handSpeed.x < -1000){
         //RIGHT
         return 2;
     }
-    if(handSpeed.y > 500){
+    if(handSpeed.y > 1000){
         //UP
         return 3;
-    }else if(handSpeed.y < -500){
+    }else if(handSpeed.y < -1000){
         //DOWN
         return 4;
     }
-    if(handSpeed.z > 500){
+    if(handSpeed.z > 1000){
         //FORWARD
         return 5;
-    }else if(handSpeed.z < -500){
+    }else if(handSpeed.z < -1000){
         //BACKWARD
         return 6;
     }

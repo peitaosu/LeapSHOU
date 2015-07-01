@@ -44,7 +44,7 @@ void DisplayMouseLine::paintEvent(QPaintEvent *event){
     if(prevx!=0){
         painter. drawLine( prevx+160 , prevy+160 , crtx , crty );
     }
-    std::cout<<prevx<<prevy<<crtx<<crty<<std::endl;
+    //std::cout<<prevx<<prevy<<crtx<<crty<<std::endl;
     //painter.drawEllipse(crtx-15 ,crty-15,30,30);
 }
 

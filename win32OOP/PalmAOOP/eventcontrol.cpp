@@ -36,7 +36,14 @@ EventControl::EventControl(QObject *parent) :
      connect(this,SIGNAL(pcS()),this,SLOT(pc()));
      connect(this,SIGNAL(otherS()),this,SLOT(other()));
      connect(this,SIGNAL(disconnectAllS()),this,SLOT(disconnectAll()));
-     connect(this,SIGNAL(handDown()),OP,SLOT(showDesktop()));
+     connect(this,SIGNAL(handUp()),OP,SLOT(moveWindowtoUp()));
+     connect(this,SIGNAL(handDown()),OP,SLOT(moveWindowtoDown()));
+     connect(this,SIGNAL(handLeft()),OP,SLOT(moveWindowtoLeft()));
+     connect(this,SIGNAL(handRight()),OP,SLOT(moveWindowtoRight()));
+}
+
+EventControl::~EventControl(){
+    controller.removeListener(listenner);
 }
 
 void EventControl::EventListenner(){
@@ -210,6 +217,9 @@ void EventControl::desktop(){
     connect(this,SIGNAL(pinchStart()),this,SLOT(showDT()));
     connect(this,SIGNAL(pinchStop()),this,SLOT(hideDT()));
     connect(this,SIGNAL(turntableUp()),OP,SLOT(openFileManager()));
+    //connect(this,SIGNAL(turntableDown()),OP,SLOT(openFileManager()));
+    connect(this,SIGNAL(turntableLeft()),OP,SLOT(openBrowser()));
+    connect(this,SIGNAL(turntableRight()),OP,SLOT(openFileManager()));
 
 }
 void EventControl::browser(){
@@ -274,7 +284,7 @@ void EventControl::hideDT(){
     int DT_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * QApplication::desktop()->height() -160;
     if(Turntable[0] != 0){
         float slope = (DT_y - Turntable[1])/(DT_x - Turntable[0]);
-        int Horizontal,Vertical;
+        int Horizontal,Vertical=0;
         if(DT_x - Turntable[0] >= 0){
             Horizontal = 1;
         }else{
@@ -288,15 +298,15 @@ void EventControl::hideDT(){
         Turntable[0] = 0;
         Turntable[1] = 0;
         if(slope >= 1 || slope <= -1){
-            if(Vertical = 1){
+            if(Vertical == 1){
                 emit turntableUp();
-            }else if(Vertical = -1){
+            }else if(Vertical == -1){
                 emit turntableDown();
             }
         }else{
-            if(Horizontal = 1){
+            if(Horizontal == 1){
                 emit turntableRight();
-            }else if(Horizontal = -1){
+            }else if(Horizontal == -1){
                 emit turntableLeft();
             }
         }

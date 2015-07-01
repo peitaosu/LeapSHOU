@@ -25,6 +25,11 @@ public slots:
     void swipeWindow();
     void swipeWindow(int);
     void swipeBrowserTab();
+    void moveWindowtoLeft();
+    void moveWindowtoRight();
+    void moveWindowtoUp();
+    void moveWindowtoDown();
+    void openBrowser();
 
 
 };

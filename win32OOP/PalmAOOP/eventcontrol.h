@@ -17,7 +17,7 @@ class EventControl : public QObject
     Q_OBJECT
 public:
     explicit EventControl(QObject *parent = 0);
-
+    ~EventControl();
 signals:
     void grabStart();
     void grabStop();

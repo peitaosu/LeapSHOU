@@ -1,4 +1,6 @@
 #include "operate.h"
+#include <QDesktopServices>
+#include <QUrl>
 #include <Windows.h>
 #include <iostream>
 Operate::Operate(QObject *parent) :
@@ -74,4 +76,33 @@ void Operate::swipeBrowserTab(){
     keybd_event(VK_TAB,0,0,0);
     keybd_event(VK_TAB,0,KEYEVENTF_KEYUP,0);
     keybd_event(VK_CONTROL,0,KEYEVENTF_KEYUP,0);
+}
+void Operate::moveWindowtoLeft(){
+    keybd_event(VK_LWIN,0,0,0);
+    keybd_event(VK_LEFT,0,0,0);
+    keybd_event(VK_LEFT,0,KEYEVENTF_KEYUP,0);
+    keybd_event(VK_LWIN,0,KEYEVENTF_KEYUP,0);
+}
+void Operate::moveWindowtoRight(){
+    keybd_event(VK_LWIN,0,0,0);
+    keybd_event(VK_RIGHT,0,0,0);
+    keybd_event(VK_RIGHT,0,KEYEVENTF_KEYUP,0);
+    keybd_event(VK_LWIN,0,KEYEVENTF_KEYUP,0);
+}
+void Operate::moveWindowtoUp(){
+    keybd_event(VK_LWIN,0,0,0);
+    keybd_event(VK_UP,0,0,0);
+    keybd_event(VK_UP,0,KEYEVENTF_KEYUP,0);
+    keybd_event(VK_LWIN,0,KEYEVENTF_KEYUP,0);
+}
+void Operate::moveWindowtoDown(){
+    keybd_event(VK_LWIN,0,0,0);
+    keybd_event(VK_DOWN,0,0,0);
+    keybd_event(VK_DOWN,0,KEYEVENTF_KEYUP,0);
+    keybd_event(VK_LWIN,0,KEYEVENTF_KEYUP,0);
+}
+
+void Operate::openBrowser(){
+    QUrl url("http://www.shou.edu.cn");
+    QDesktopServices::openUrl(url);
 }
