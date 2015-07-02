@@ -21,11 +21,13 @@ DisplayTurntable::DisplayTurntable(QWidget *parent) :
     //Set Window Flag : Tool | Frameless | Stay On Top
     this->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
-    m_Pixmap.load(":/png/turntable-320.png");
+    m_Pixmap_desktop.load(":/png/turntable-320.png");
+    m_Pixmap_filemanager.load("");
     resize(320, 320);
-    m_Pixmap = m_Pixmap.scaled(size());
+    m_Pixmap_desktop = m_Pixmap_desktop.scaled(size());
+    m_Pixmap_filemanager = m_Pixmap_filemanager.scaled(size());
     setAutoFillBackground(true);
-    setMask( m_Pixmap.mask() );
+
 
 }
 
@@ -36,12 +38,40 @@ DisplayTurntable::~DisplayTurntable()
 
 void DisplayTurntable::paintEvent(QPaintEvent *event){
     QPalette bgPalette = this->palette();
-    bgPalette.setBrush(QPalette::Background,m_Pixmap);
+    switch (this->FGWin) {
+    case 1:
+        bgPalette.setBrush(QPalette::Background,m_Pixmap_desktop);
+        break;
+    case 2:
+        break;
+    case 3:
+        bgPalette.setBrush(QPalette::Background,m_Pixmap_filemanager);
+        break;
+    default:
+        break;
+    }
+
+
     this->setPalette(bgPalette);
 }
 
 void DisplayTurntable::showDisplayTurntable(int x,int y){
+    switch (this->FGWin) {
+    case 1:
+        this->setMask( m_Pixmap_desktop.mask());
+        break;
+    case 2:
+        break;
+    case 3:
+         this->setMask( m_Pixmap_filemanager.mask());
+        break;
+    default:
+        break;
+    }
     this->setGeometry(x,y,400,400);
     this->show();
 }
 
+void DisplayTurntable::setFGWin(int x){
+    this->FGWin = x;
+}

@@ -224,10 +224,28 @@ void EventControl::desktop(){
 }
 void EventControl::browser(){
     emit disconnectAllS();
+    connect(this,SIGNAL(circleStart()),OP,SLOT(MouseWheel()));
+    connect(this,SIGNAL(circleKeep()),OP,SLOT(MouseWheel()));
+    connect(this,SIGNAL(circleStop()),OP,SLOT(MouseWheelStop()));
+    connect(this,SIGNAL(circleAntiStart()),OP,SLOT(MouseWheelN()));
+    connect(this,SIGNAL(circleAntiKeep()),OP,SLOT(MouseWheelN()));
+    connect(this,SIGNAL(circleAntiStop()),OP,SLOT(MouseWheelStop()));
+    connect(this,SIGNAL(pinchStart()),OP,SLOT(swipeBrowserTab()));
+    connect(this,SIGNAL(holdDone()),this,SLOT(MouseLeftClick()));
+    connect(this,SIGNAL(grabStart()),OP,SLOT(goBack()));
 
 }
 void EventControl::pc(){
     emit disconnectAllS();
+    connect(this,SIGNAL(circleStart()),OP,SLOT(MouseWheel()));
+    connect(this,SIGNAL(circleKeep()),OP,SLOT(MouseWheel()));
+    connect(this,SIGNAL(circleStop()),OP,SLOT(MouseWheelStop()));
+    connect(this,SIGNAL(circleAntiStart()),OP,SLOT(MouseWheelN()));
+    connect(this,SIGNAL(circleAntiKeep()),OP,SLOT(MouseWheelN()));
+    connect(this,SIGNAL(circleAntiStop()),OP,SLOT(MouseWheelStop()));
+//    connect(this,SIGNAL(turntableUp()),OP,SLOT(MouseLeftDClick()));
+//    connect(this,SIGNAL(turntableDown()),OP,SLOT(goBack()));
+
 }
 void EventControl::other(){
     emit disconnectAllS();
@@ -274,7 +292,21 @@ void EventControl::showDT(){
     int DT_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * QApplication::desktop()->height() -160;
     Turntable[0] = DT_x;
     Turntable[1] = DT_y;
-    DT.showDisplayTurntable(DT_x,DT_y);
+    switch (FGW.getFGWinName()) {
+    case 1:
+        DT.setFGWin(1);
+        DT.showDisplayTurntable(DT_x,DT_y);
+        break;
+    case 2:
+         //DT.showDisplayTurntable(DT_x,DT_y,2);
+         break;
+    case 3:
+        DT.setFGWin(3);
+         DT.showDisplayTurntable(DT_x,DT_y);
+         break;
+    default:
+        break;
+    }
 
 }
 

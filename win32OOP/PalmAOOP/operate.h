@@ -30,6 +30,7 @@ public slots:
     void moveWindowtoUp();
     void moveWindowtoDown();
     void openBrowser();
+    void goBack();
 
 
 };

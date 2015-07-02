@@ -106,3 +106,8 @@ void Operate::openBrowser(){
     QUrl url("http://www.shou.edu.cn");
     QDesktopServices::openUrl(url);
 }
+
+void Operate::goBack(){
+    keybd_event(VK_BACK,0,0,0);
+    keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,0);
+}
