@@ -21,8 +21,8 @@ DisplayTurntable::DisplayTurntable(QWidget *parent) :
     //Set Window Flag : Tool | Frameless | Stay On Top
     this->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
-    m_Pixmap_desktop.load(":/png/turntable-320.png");
-    m_Pixmap_filemanager.load("");
+    m_Pixmap_desktop.load(":/png/turntable_desktop-320.png");
+    m_Pixmap_filemanager.load(":/png/turntable_filemanager-320.png");
     resize(320, 320);
     m_Pixmap_desktop = m_Pixmap_desktop.scaled(size());
     m_Pixmap_filemanager = m_Pixmap_filemanager.scaled(size());

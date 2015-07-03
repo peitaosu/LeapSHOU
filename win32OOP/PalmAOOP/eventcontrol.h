@@ -54,6 +54,8 @@ signals:
 
     void disconnectAllS();
 
+    void showGesture(int);
+
 public slots:
     void EventListenner();
 

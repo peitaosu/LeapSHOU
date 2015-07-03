@@ -31,11 +31,15 @@ EventControl::EventControl(QObject *parent) :
      connect(EventTimer,SIGNAL(timeout()),this,SLOT(EventListenner()));
      EventTimer->start(20);
 
+     connect(this,SIGNAL(showGesture(int)),DP,SLOT(showGesture(int)));
+
      connect(this,SIGNAL(desktopS()),this,SLOT(desktop()));
      connect(this,SIGNAL(browserS()),this,SLOT(browser()));
      connect(this,SIGNAL(pcS()),this,SLOT(pc()));
      connect(this,SIGNAL(otherS()),this,SLOT(other()));
+
      connect(this,SIGNAL(disconnectAllS()),this,SLOT(disconnectAll()));
+
      connect(this,SIGNAL(handUp()),OP,SLOT(moveWindowtoUp()));
      connect(this,SIGNAL(handDown()),OP,SLOT(moveWindowtoDown()));
      connect(this,SIGNAL(handLeft()),OP,SLOT(moveWindowtoLeft()));
@@ -243,8 +247,12 @@ void EventControl::pc(){
     connect(this,SIGNAL(circleAntiStart()),OP,SLOT(MouseWheelN()));
     connect(this,SIGNAL(circleAntiKeep()),OP,SLOT(MouseWheelN()));
     connect(this,SIGNAL(circleAntiStop()),OP,SLOT(MouseWheelStop()));
-//    connect(this,SIGNAL(turntableUp()),OP,SLOT(MouseLeftDClick()));
-//    connect(this,SIGNAL(turntableDown()),OP,SLOT(goBack()));
+    connect(this,SIGNAL(pinchStart()),this,SLOT(showDT()));
+    connect(this,SIGNAL(pinchStop()),this,SLOT(hideDT()));
+    connect(this,SIGNAL(turntableUp()),this,SLOT(MouseLeftDClick()));
+    connect(this,SIGNAL(turntableDown()),OP,SLOT(goBack()));
+    connect(this,SIGNAL(turntableLeft()),OP,SLOT(goRefresh()));
+    connect(this,SIGNAL(turntableRight()),OP,SLOT(showDesktop()));
 
 }
 void EventControl::other(){

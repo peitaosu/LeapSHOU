@@ -21,6 +21,7 @@ public slots:
     void DTTurntableShow();
     void DTTurntableChange(int, int, int, int, float);
     void DTTurntableHide();
+    void showGesture(int);
 
 private:
     Ui::Display *ui;

@@ -31,6 +31,7 @@ public slots:
     void moveWindowtoDown();
     void openBrowser();
     void goBack();
+    void goRefresh();
 
 
 };

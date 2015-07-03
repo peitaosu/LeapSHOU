@@ -111,3 +111,8 @@ void Operate::goBack(){
     keybd_event(VK_BACK,0,0,0);
     keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,0);
 }
+
+void Operate::goRefresh(){
+    keybd_event(VK_F5,0,0,0);
+    keybd_event(VK_F5,0,KEYEVENTF_KEYUP,0);
+}

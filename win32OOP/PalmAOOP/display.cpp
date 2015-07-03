@@ -43,3 +43,10 @@ void Display::DTTurntableChange(int x, int y, int width, int height, float Opa){
     dt.setWindowOpacity(Opa);
 }
 
+void Display::showGesture(int x){
+    switch(x){
+    default:
+        break;
+    }
+}
+
