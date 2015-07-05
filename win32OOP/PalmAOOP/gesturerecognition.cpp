@@ -6,6 +6,8 @@ int LhCount = 0;
 int LHold[3] = {0};
 int RhCount = 0;
 int RHold[3] = {0};
+int LHoldStatus = 0;
+int RHoldStatus = 0;
 
 GestureRecognition::GestureRecognition(){
     controller.enableGesture(Leap::Gesture::TYPE_CIRCLE);
@@ -90,13 +92,26 @@ int GestureRecognition::gesHoldLeft(){
         }
     }
     if(LHold[0] == 1 && LHold[1] == 1 && LHold[2] == 1){
+        LHoldStatus = 3;
+        LHold[0] = 0;
+        LHold[1] = 0;
+        LHold[2] = 0;
+        LhCount = 0;
         return 3;
     }else if(LHold[0] == 1 && LHold[1] == 1 && LHold[2] == 0){
+        LHoldStatus = 2;
         return 2;
     }else if(LHold[0] == 1 && LHold[1] == 0 && LHold[2] == 0){
+        LHoldStatus = 1;
         return 1;
     }else{
-        return 0;
+        if(LHoldStatus == 3){
+            return 4;
+            LHoldStatus = 4;
+        }else{
+            LHoldStatus = 0;
+            return 0;
+        }
     }
 }
 int GestureRecognition::gesHoldRight(){
@@ -127,17 +142,26 @@ int GestureRecognition::gesHoldRight(){
         }
     }
     if(RHold[0] == 1 && RHold[1] == 1 && RHold[2] == 1){
-        return 3;
+        RHoldStatus = 3;
         RHold[0] = 0;
         RHold[1] = 0;
         RHold[2] = 0;
         RhCount = 0;
+        return 3;
     }else if(RHold[0] == 1 && RHold[1] == 1 && RHold[2] == 0){
+        RHoldStatus = 2;
         return 2;
     }else if(RHold[0] == 1 && RHold[1] == 0 && RHold[2] == 0){
+        RHoldStatus = 1;
         return 1;
     }else{
-        return 0;
+        if(RHoldStatus == 3){
+            RHoldStatus = 4;
+            return 4;
+        }else{
+            RHoldStatus = 0;
+            return 0;
+        }
     }
 }
 int GestureRecognition::gesHoldDouble(){

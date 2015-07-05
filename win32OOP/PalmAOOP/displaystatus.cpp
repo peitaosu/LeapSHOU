@@ -6,6 +6,7 @@
 #include <QPen>
 #include <QBrush>
 #include <QTimer>
+#include <QTime>
 #include <iostream>
 #include "Windows.h"
 #include "lmlistenner.h"
@@ -15,12 +16,12 @@ DisplayStatus::DisplayStatus(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //Set Geometry (-60,-60) from Right-Buttom, size is 180*180
+    //Set Geometry (-60,-60) from Right-Buttom, size is 180*30
     this->setGeometry(QApplication::desktop()->width()-240,QApplication::desktop()->height()-285,180,30);
 
     //Set Window Background Color R0:G0:B0 (BLACK), Opacity is 0.8
     this->setPalette(QPalette( QColor(0, 0, 0)) );
-    this->setWindowOpacity(0.5);
+    this->setWindowOpacity(0.8);
 
     //Set Window Flag : Tool | Frameless | Stay On Top
     this->setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
@@ -32,11 +33,25 @@ DisplayStatus::DisplayStatus(QWidget *parent) :
     connect(updateStatus,SIGNAL(timeout()),this,SLOT(setStatusDisplay()));
     updateStatus->start(20);
 
+    current_time = QTime::currentTime();
+
 }
 
 DisplayStatus::~DisplayStatus()
 {
     delete ui;
+}
+
+void DisplayStatus::delayShow(){
+    this->show();
+    for(float opa = 0;opa<0.8;){
+        if(QTime::currentTime().msec()%20 == 0){
+            this->setWindowOpacity(opa);
+            opa += 0.005;
+            std::cout<<opa<<std::endl;
+        }
+        //opa+=0.01;
+    }
 }
 
 void DisplayStatus::setStatusDisplay(){

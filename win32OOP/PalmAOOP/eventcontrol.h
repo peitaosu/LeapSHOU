@@ -9,7 +9,7 @@
 #include "operate.h"
 #include "vmouse.h"
 #include "display.h"
-#include "displaystatus.h"
+//#include "displaystatus.h"
 #include "displayturntable.h"
 #include "displaymouseline.h"
 class EventControl : public QObject
@@ -82,7 +82,7 @@ private:
     VMouse VM;
     Operate *OP;
     Display DP;
-    DisplayStatus DS;
+    //DisplayStatus DS;
     DisplayTurntable DT;
     DisplayMouseLine DML;
 };

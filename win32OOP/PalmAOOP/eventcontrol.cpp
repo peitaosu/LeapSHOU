@@ -2,6 +2,26 @@
 #include <QTimer>
 #include <QApplication>
 #include <QDesktopWidget>
+
+#define GRABSTART_SHOW 111
+#define GRABKEEP_SHOW 112
+#define GRABSTOP_SHOW 110
+#define PINCHSTART_SHOW 121
+#define PINCHKEEP_SHOW 122
+#define PINCHSTOP_SHOW 120
+#define HOLDSTART_SHOW 131
+#define HOLDKEEP_SHOW 132
+#define HOLDDONE_SHOW 133
+#define HOLDSTOP_SHOW 130
+#define CIRCLESTART_SHOW 141
+#define CIRCLEKEEP_SHOW 142
+#define CIRCLESTOP_SHOW 140
+#define CIRCLEANTISTART_SHOW 151
+#define CIRCLEANTIKEEP_SHOW 152
+#define CIRCLEANTISTOP_SHOW 150
+
+
+
 #define ON 0
 #define START 1
 #define KEEP 2
@@ -22,8 +42,9 @@ EventControl::EventControl(QObject *parent) :
      controller.addListener(listenner);
      controller.setPolicyFlags(Leap::Controller::PolicyFlag::POLICY_BACKGROUND_FRAMES);
      VM.show();
+//     DP = new Display();
      DP.show();
-     DS.show();
+     //DS.show();
      DML.show();
      OP = new Operate(this);
 
@@ -31,7 +52,7 @@ EventControl::EventControl(QObject *parent) :
      connect(EventTimer,SIGNAL(timeout()),this,SLOT(EventListenner()));
      EventTimer->start(20);
 
-     connect(this,SIGNAL(showGesture(int)),DP,SLOT(showGesture(int)));
+     connect(this,SIGNAL(showGesture(int)),&DP,SLOT(showGesture(int)));
 
      connect(this,SIGNAL(desktopS()),this,SLOT(desktop()));
      connect(this,SIGNAL(browserS()),this,SLOT(browser()));
@@ -109,10 +130,13 @@ void EventControl::EventListenner(){
         break;
     case START:
         emit grabStart();
+        emit showGesture(GRABSTART_SHOW);
         break;
     case KEEP:
+        emit showGesture(GRABKEEP_SHOW);
         break;
     case STOP:
+        emit showGesture(GRABSTOP_SHOW);
         emit grabStop();
         break;
     default:
@@ -123,11 +147,14 @@ void EventControl::EventListenner(){
         break;
     case START:
         emit pinchStart();
+        emit showGesture(PINCHSTART_SHOW);
         break;
     case KEEP:
+        emit showGesture(PINCHKEEP_SHOW);
         break;
     case STOP:
         emit pinchStop();
+        emit showGesture(PINCHSTOP_SHOW);
         break;
     default:
         break;
@@ -137,12 +164,15 @@ void EventControl::EventListenner(){
         break;
     case START:
         emit circleStart();
+        emit showGesture(CIRCLESTART_SHOW);
         break;
     case KEEP:
         emit circleKeep();
+        emit showGesture(CIRCLEKEEP_SHOW);
         break;
     case STOP:
         emit circleStop();
+        emit showGesture(CIRCLESTOP_SHOW);
         break;
     default:
         break;
@@ -152,12 +182,15 @@ void EventControl::EventListenner(){
         break;
     case START:
         emit circleAntiStart();
+        emit showGesture(CIRCLEANTISTART_SHOW);
         break;
     case KEEP:
         emit circleAntiKeep();
+        emit showGesture(CIRCLEANTIKEEP_SHOW);
         break;
     case STOP:
         emit circleAntiStop();
+        emit showGesture(CIRCLEANTISTOP_SHOW);
         break;
     default:
         break;
@@ -165,15 +198,21 @@ void EventControl::EventListenner(){
     switch(GR.gesHoldRight()){
     case 1:
         emit holdStart();
+        emit showGesture(HOLDSTART_SHOW);
         break;
     case 2:
         emit holdKeep();
+        emit showGesture(HOLDKEEP_SHOW);
         break;
     case 3:
         emit holdDone();
+        emit showGesture(HOLDDONE_SHOW);
+        break;
+    case 4:
+        emit holdStop();
+        emit showGesture(HOLDSTOP_SHOW);
         break;
     case 0:
-        emit holdStop();
         break;
     default:
         break;

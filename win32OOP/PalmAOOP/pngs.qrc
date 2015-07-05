@@ -4,5 +4,36 @@
         <file>png/turntable_desktop-320.png</file>
         <file>png/turntable_filemanager.png</file>
         <file>png/turntable_filemanager-320.png</file>
+        <file>png/gesture/1finger.png</file>
+        <file>png/gesture/2finger.png</file>
+        <file>png/gesture/3finger.png</file>
+        <file>png/gesture/4finger.png</file>
+        <file>png/gesture/check.png</file>
+        <file>png/gesture/circle.png</file>
+        <file>png/gesture/device.png</file>
+        <file>png/gesture/device_connect.png</file>
+        <file>png/gesture/device_disconnect.png</file>
+        <file>png/gesture/diamond.png</file>
+        <file>png/gesture/expand.png</file>
+        <file>png/gesture/fist.png</file>
+        <file>png/gesture/focusg.png</file>
+        <file>png/gesture/focusl.png</file>
+        <file>png/gesture/grab.png</file>
+        <file>png/gesture/hand.png</file>
+        <file>png/gesture/hold.png</file>
+        <file>png/gesture/hold2.png</file>
+        <file>png/gesture/hold3.png</file>
+        <file>png/gesture/keytap.png</file>
+        <file>png/gesture/move.png</file>
+        <file>png/gesture/off.png</file>
+        <file>png/gesture/pinch.png</file>
+        <file>png/gesture/pinche.png</file>
+        <file>png/gesture/screentap.png</file>
+        <file>png/gesture/server_connect.png</file>
+        <file>png/gesture/server_disconnect.png</file>
+        <file>png/gesture/shrink.png</file>
+        <file>png/gesture/swipe.png</file>
+        <file>png/gesture/triangle.png</file>
+        <file>png/gesture/x.png</file>
     </qresource>
 </RCC>
