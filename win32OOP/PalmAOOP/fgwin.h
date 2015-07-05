@@ -12,8 +12,8 @@ public:
 signals:
 
 public slots:
+    int getFGWinNameByMatchTitle();
     int getFGWinName();
-
 
 
 };
