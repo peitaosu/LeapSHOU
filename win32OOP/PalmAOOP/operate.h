@@ -32,6 +32,7 @@ public slots:
     void openBrowser();
     void goBack();
     void goRefresh();
+    void goEnter();
 
 
 };

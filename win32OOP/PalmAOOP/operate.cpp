@@ -107,6 +107,11 @@ void Operate::openBrowser(){
     QDesktopServices::openUrl(url);
 }
 
+void Operate::goEnter(){
+    keybd_event(VK_RETURN,0,0,0);
+    keybd_event(VK_RETURN,0,KEYEVENTF_KEYUP,0);
+}
+
 void Operate::goBack(){
     keybd_event(VK_BACK,0,0,0);
     keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,0);

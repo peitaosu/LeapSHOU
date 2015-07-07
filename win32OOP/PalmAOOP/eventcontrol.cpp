@@ -258,9 +258,10 @@ void EventControl::desktop(){
     emit disconnectAllS();
     connect(this,SIGNAL(grabStart()),OP,SLOT(swipeWindow()));
     connect(this,SIGNAL(pinchStart()),this,SLOT(showDT()));
+    connect(this,SIGNAL(pinchStart()),this,SLOT(MouseLeftClick()));
     connect(this,SIGNAL(pinchStop()),this,SLOT(hideDT()));
     connect(this,SIGNAL(turntableUp()),OP,SLOT(openFileManager()));
-    //connect(this,SIGNAL(turntableDown()),OP,SLOT(openFileManager()));
+    connect(this,SIGNAL(turntableDown()),OP,SLOT(openBrowser()));
     connect(this,SIGNAL(turntableLeft()),OP,SLOT(openBrowser()));
     connect(this,SIGNAL(turntableRight()),OP,SLOT(openFileManager()));
 
@@ -287,8 +288,9 @@ void EventControl::pc(){
     connect(this,SIGNAL(circleAntiKeep()),OP,SLOT(MouseWheelN()));
     connect(this,SIGNAL(circleAntiStop()),OP,SLOT(MouseWheelStop()));
     connect(this,SIGNAL(pinchStart()),this,SLOT(showDT()));
+    connect(this,SIGNAL(pinchStart()),this,SLOT(MouseLeftClick()));
     connect(this,SIGNAL(pinchStop()),this,SLOT(hideDT()));
-    connect(this,SIGNAL(turntableUp()),this,SLOT(MouseLeftDClick()));
+    connect(this,SIGNAL(turntableUp()),OP,SLOT(goEnter()));
     connect(this,SIGNAL(turntableDown()),OP,SLOT(goBack()));
     connect(this,SIGNAL(turntableLeft()),OP,SLOT(goRefresh()));
     connect(this,SIGNAL(turntableRight()),OP,SLOT(showDesktop()));
@@ -339,6 +341,7 @@ void EventControl::showDT(){
     int DT_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * QApplication::desktop()->height() -160;
     Turntable[0] = DT_x;
     Turntable[1] = DT_y;
+    std::cout<<FGW.getFGWinName()<<std::endl;
     switch (FGW.getFGWinName()) {
     case 1:
         DT.setFGWin(1);
@@ -370,9 +373,9 @@ void EventControl::hideDT(){
             Horizontal = -1;
         }
         if(DT_y - Turntable[1] >= 0){
-            Vertical = 1;
-        }else{
             Vertical = -1;
+        }else{
+            Vertical = 1;
         }
         Turntable[0] = 0;
         Turntable[1] = 0;

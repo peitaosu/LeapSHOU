@@ -87,8 +87,10 @@ int FGWin::getFGWinName(){
     }else if(wcsstr(szProcessName,Desktop)){
         if(wcsstr(buf, DT)){
             return 1;
-        }else{
+        }else if(wcsstr(buf, PC)){
             return 3;
+        }else{
+            return 1;
         }
     }else{
         return 0;

@@ -25,6 +25,7 @@ float GestureRecognition::getX(){
 }
 
 float GestureRecognition::getY(){
+
     Leap::InteractionBox iBox = controller.frame().interactionBox();
     Leap::Vector handCenter = iBox.normalizePoint(
             controller.frame().hands()[0].stabilizedPalmPosition()
