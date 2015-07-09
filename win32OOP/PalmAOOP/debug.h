@@ -23,16 +23,16 @@ public slots:
     void debugcout();
 
 private:
-    GestureRecognition GR;
-    VMouse VM;
-    FGWin FGW;
-    //Operate OP;
-    Display DP;
-    DisplayStatus DS;
-    Leap::Controller controller;
-    LMListenner listenner;
-    DisplayTurntable DT;
-    LMEngineeringModel LMEM;
+//    GestureRecognition GR;
+//    VMouse VM;
+//    FGWin FGW;
+//    Operate OP;
+//    Display DP;
+//    DisplayStatus DS;
+//    Leap::Controller controller;
+//    LMListenner listenner;
+//    DisplayTurntable DT;
+//    LMEngineeringModel LMEM;
 };
 
 #endif // DEBUG_H

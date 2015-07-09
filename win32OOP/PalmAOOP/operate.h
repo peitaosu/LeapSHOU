@@ -33,8 +33,11 @@ public slots:
     void goBack();
     void goRefresh();
     void goEnter();
-
-
+    void lockscreen();
+    bool shutdown();
+    bool shutdownforce();
+    bool reboot();
+    bool logout();
 };
 
 #endif // OPERATE_H

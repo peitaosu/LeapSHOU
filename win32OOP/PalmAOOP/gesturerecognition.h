@@ -13,6 +13,7 @@ public:
     float getY();
     float getZ();
     float getFPS();
+    int getHandsCount();
     int getMouseX();
     int getMouseY();
 

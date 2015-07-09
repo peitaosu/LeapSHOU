@@ -2,7 +2,7 @@
 #define LMENGINEERINGMODEL_H
 
 #include <QWidget>
-
+#include "gesturerecognition.h"
 namespace Ui {
 class LMEngineeringModel;
 }
@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::LMEngineeringModel *ui;
+    GestureRecognition GR;
+
+private slots:
+    void getInfo();
+
 };
 
 #endif // LMENGINEERINGMODEL_H

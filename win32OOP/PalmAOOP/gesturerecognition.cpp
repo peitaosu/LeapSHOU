@@ -45,6 +45,11 @@ float GestureRecognition::getFPS(){
     return controller.frame().currentFramesPerSecond();
 }
 
+int GestureRecognition::getHandsCount()
+{
+    return controller.frame().hands().count();
+}
+
 float GestureRecognition::getSlope(int frames){
     int *fitPos_x;
     int *fitPos_y;

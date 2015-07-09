@@ -25,7 +25,8 @@ SOURCES += main.cpp \
     lmlistenner.cpp \
     displaystatus.cpp \
     displaymouseline.cpp \
-    lmengineeringmodel.cpp
+    lmengineeringmodel.cpp \
+    drawgesture.cpp
 
 HEADERS  += \
     header/Leap.h \
@@ -41,7 +42,8 @@ HEADERS  += \
     lmlistenner.h \
     displaystatus.h \
     displaymouseline.h \
-    lmengineeringmodel.h
+    lmengineeringmodel.h \
+    drawgesture.h
 
 FORMS    += \
     vmouse.ui \
@@ -49,7 +51,8 @@ FORMS    += \
     displayturntable.ui \
     displaystatus.ui \
     displaymouseline.ui \
-    lmengineeringmodel.ui
+    lmengineeringmodel.ui \
+    drawgesture.ui
 
 unix|win32: LIBS += -L$$PWD/lib/x64/ -lLeap
 
