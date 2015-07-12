@@ -3,6 +3,7 @@
 #include <QUrl>
 #include <Windows.h>
 #include <iostream>
+#pragma comment (lib,"Advapi32.lib")
 Operate::Operate(QObject *parent) :
     QObject(parent)
 {

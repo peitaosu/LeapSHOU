@@ -1,6 +1,7 @@
 #ifndef DRAWGESTURE_H
 #define DRAWGESTURE_H
 #include "header/Leap.h"
+#include "gesturerecognition.h"
 
 #include <QWidget>
 namespace Ui {
@@ -14,16 +15,24 @@ class DrawGesture : public QWidget
 public:
     explicit DrawGesture(QWidget *parent = 0);
     ~DrawGesture();
+    void paintEvent(QPaintEvent *event);
+
+signals:
+    void drawGesture(int);
+
 public slots:
-    void setON();
-    void setOFF();
+    void getDrawGesture();
+    void setSTART();
+    void setSTOP();
+
 private:
     Ui::DrawGesture *ui;
     Leap::Controller controller;
     Leap::InteractionBox iBox;
     int mouse_x;
     int mouse_y;
-    bool ON;
+    bool START;
+    GestureRecognition GR;
 };
 
 #endif // DRAWGESTURE_H

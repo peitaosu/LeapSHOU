@@ -12,6 +12,7 @@
 //#include "displaystatus.h"
 #include "displayturntable.h"
 #include "displaymouseline.h"
+#include "drawgesture.h"
 class EventControl : public QObject
 {
     Q_OBJECT
@@ -85,6 +86,8 @@ private:
     //DisplayStatus DS;
     DisplayTurntable DT;
     DisplayMouseLine DML;
+
+    //DrawGesture DG;
 };
 
 extern int Turntable[2];

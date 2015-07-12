@@ -48,6 +48,9 @@ EventControl::EventControl(QObject *parent) :
      DML.show();
      OP = new Operate(this);
 
+     //DG.show();
+
+
      QTimer *EventTimer = new QTimer(this);
      connect(EventTimer,SIGNAL(timeout()),this,SLOT(EventListenner()));
      EventTimer->start(20);

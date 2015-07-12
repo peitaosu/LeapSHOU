@@ -26,7 +26,9 @@ SOURCES += main.cpp \
     displaystatus.cpp \
     displaymouseline.cpp \
     lmengineeringmodel.cpp \
-    drawgesture.cpp
+    drawgesture.cpp \
+    settingpanel.cpp \
+    roadmapgesture.cpp
 
 HEADERS  += \
     header/Leap.h \
@@ -43,7 +45,9 @@ HEADERS  += \
     displaystatus.h \
     displaymouseline.h \
     lmengineeringmodel.h \
-    drawgesture.h
+    drawgesture.h \
+    settingpanel.h \
+    roadmapgesture.h
 
 FORMS    += \
     vmouse.ui \
@@ -52,7 +56,9 @@ FORMS    += \
     displaystatus.ui \
     displaymouseline.ui \
     lmengineeringmodel.ui \
-    drawgesture.ui
+    drawgesture.ui \
+    settingpanel.ui \
+    roadmapgesture.ui
 
 unix|win32: LIBS += -L$$PWD/lib/x64/ -lLeap
 

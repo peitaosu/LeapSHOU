@@ -2,11 +2,14 @@
 #include "ui_drawgesture.h"
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QTimer>
 #include <QPainter>
 #include <QPen>
 #include <Windows.h>
 #include "header/Leap.h"
 #include "header/fit.h"
+int DrawGestureStatus[3] = {0};
+int dCount = 0;
 DrawGesture::DrawGesture(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DrawGesture)
@@ -28,26 +31,35 @@ DrawGesture::DrawGesture(QWidget *parent) :
     connect(updatePoint,SIGNAL(timeout()),this,SLOT(update()));
     updatePoint->start(20);
 
+    QTimer *drawGesture = new QTimer(this);
+    connect(drawGesture,SIGNAL(timeout()),this,SLOT(getDrawGesture()));
+    drawGesture->start(500);
+
+    //QPixmap pix = QPixmap::grabWidget(this);
 }
 
 void DrawGesture::paintEvent(QPaintEvent *event){
-    iBox = controller.frame().interactionBox();
-    screen_x = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).x * 640;
-    screen_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * 480;
+    if(GR.getHandsCount() != 0){
 
-    //New painter
-    QPainter painter(this);
+        iBox = controller.frame().interactionBox();
+        for(int i=59;i>-1;i--){
+            int screen_x = iBox.normalizePoint(controller.frame(i).hands()[0].stabilizedPalmPosition()).x * 640;
+            int screen_y = (1-iBox.normalizePoint(controller.frame(i).hands()[0].stabilizedPalmPosition()).y) * 480;
 
-    //Clear
-    if(!ON){
-        painter.fillRect(this->rect(), QColor(0,0,0,0));
+            //New painter
+            QPainter painter(this);
+
+            //Clear
+    //        if(!START){
+    //            //painter.fillRect(this->rect(), QColor(0,0,0,0));
+    //        }
+            painter.setPen(Qt::NoPen);
+            painter.setBrush(QBrush(QColor (Qt:: yellow)));
+
+            //Draw Ellipse, size is 50*50, position is (screen_x - 25, screen_y - 25)
+            painter.drawEllipse(screen_x-15 ,screen_y-15,30,30);
+        }
     }
-    //Set Pen and Brush, Brush color is R160:G255:B200 (BLUE)
-    painter.setPen(Qt::NoPen);
-    painter.setBrush(QBrush(QColor(00,160,255,200)));
-
-    //Draw Ellipse, size is 50*50, position is (screen_x - 25, screen_y - 25)
-    painter.drawEllipse(screen_x-15 ,screen_y-15,30,30);
 }
 
 
@@ -56,12 +68,57 @@ DrawGesture::~DrawGesture()
     delete ui;
 }
 
-void DrawGesture::setON()
+void DrawGesture::setSTART()
 {
-    this->ON = true;
+    this->START = true;
 }
 
-void DrawGesture::setOFF()
+void DrawGesture::setSTOP()
 {
-    this->ON = false;
+    this->START = false;
 }
+
+void DrawGesture::getDrawGesture(){
+    int gesSlope = GR.getSlope(30);
+    if(GR.getHandsCount() != 0){
+        if(gesSlope <= 0.2 && gesSlope >= -0.2){
+            gesSlope = 1;
+        }else if(gesSlope >= 0.2 && gesSlope <= 5){
+            //
+            gesSlope = 2;
+        }else if(gesSlope >= 5 || gesSlope <= -5){
+            //
+            gesSlope = 3;
+        }else if(gesSlope >= -5 && gesSlope <= -0.2){
+            //
+            gesSlope = 4;
+        }
+        if(dCount == 0){
+            DrawGestureStatus[dCount] = gesSlope;
+            dCount++;
+        }else{
+            if(dCount == 3){
+                dCount == 0;
+            }else{
+                if(gesSlope != DrawGestureStatus[dCount-1]){
+                    DrawGestureStatus[dCount] = gesSlope;
+                    dCount++;
+                }else{
+                    //break;
+                }
+            }
+        }
+        int DrawResult = DrawGestureStatus[0]*100+DrawGestureStatus[1]*10+DrawGestureStatus[2];
+        switch(DrawResult){
+        case 323:
+            emit drawGesture(323);
+        default:
+            break;
+        }
+        std::cout<<DrawResult<<std::endl;
+    }else{
+        dCount = 0;
+        DrawGestureStatus[3] = {0};
+    }
+}
+
