@@ -16,9 +16,11 @@ public:
     explicit RoadMapGesture(QWidget *parent = 0);
     ~RoadMapGesture();
     void paintEvent(QPaintEvent *event);
-
+signals:
+    void Done(int *);
 private slots:
     void setRoadMap();
+    void DoneSlot(int *);
 
 private:
     Ui::RoadMapGesture *ui;

@@ -9,6 +9,10 @@
 
 #define WindowWidth 854
 #define WindowHeight 480
+
+int RoadMapStatus[17]={0};
+QTimer *updateRoadMap;
+QTimer *updateRoadMapPaint;
 RoadMapGesture::RoadMapGesture(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RoadMapGesture)
@@ -25,78 +29,106 @@ RoadMapGesture::RoadMapGesture(QWidget *parent) :
     SetWindowLong((HWND)winId(), GWL_EXSTYLE, GetWindowLong((HWND)winId(), GWL_EXSTYLE) |
                   WS_EX_TRANSPARENT | WS_EX_LAYERED);
 
-    QTimer *updateRoadMap = new QTimer(this);
+    updateRoadMap = new QTimer(this);
     connect(updateRoadMap,SIGNAL(timeout()),this,SLOT(setRoadMap()));
     updateRoadMap->start(20);
 
-    QTimer *updateRoadMapPaint = new QTimer(this);
+    updateRoadMapPaint = new QTimer(this);
     connect(updateRoadMapPaint,SIGNAL(timeout()),this,SLOT(update()));
     updateRoadMapPaint->start(20);
 
+    //connect(this,SIGNAL(Done(int*)),this,SLOT(DoneSlot(int*)));
 }
-
+void RoadMapGesture::DoneSlot(int *RoadMap){
+    //
+}
 RoadMapGesture::~RoadMapGesture()
 {
     delete ui;
 }
 
 void RoadMapGesture::setRoadMap(){
-
     if(GR.getHandsCount()!=0){
         int road_map_point_x = GR.getX()*WindowWidth;
         int road_map_point_y = GR.getY()*WindowHeight;
 
         if(road_map_point_x>227 && road_map_point_x<327 && road_map_point_y>40 && road_map_point_y<140){
             //1
+            RoadMapStatus[1]=1;
             ui->RoadMapLabel1->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>327 && road_map_point_x<427 && road_map_point_y>40 && road_map_point_y<140){
             //2
+            RoadMapStatus[2]=1;
             ui->RoadMapLabel2->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>427 && road_map_point_x<527 && road_map_point_y>40 && road_map_point_y<140){
             //3
+            RoadMapStatus[3]=1;
             ui->RoadMapLabel3->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>527 && road_map_point_x<627 && road_map_point_y>40 && road_map_point_y<140){
             //4
+            RoadMapStatus[4]=1;
             ui->RoadMapLabel4->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>227 && road_map_point_x<327 && road_map_point_y>140 && road_map_point_y<240){
             //5
+            RoadMapStatus[5]=1;
             ui->RoadMapLabel5->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>327 && road_map_point_x<427 && road_map_point_y>140 && road_map_point_y<240){
             //6
+            RoadMapStatus[6]=1;
             ui->RoadMapLabel6->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>427 && road_map_point_x<527 && road_map_point_y>140 && road_map_point_y<240){
             //7
+            RoadMapStatus[7]=1;
             ui->RoadMapLabel7->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>527 && road_map_point_x<627 && road_map_point_y>140 && road_map_point_y<240){
             //8
+            RoadMapStatus[8]=1;
             ui->RoadMapLabel8->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>227 && road_map_point_x<327 && road_map_point_y>240 && road_map_point_y<340){
             //9
+            RoadMapStatus[9]=1;
             ui->RoadMapLabel9->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>327 && road_map_point_x<427 && road_map_point_y>240 && road_map_point_y<340){
             //10
+            RoadMapStatus[10]=1;
             ui->RoadMapLabel10->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>427 && road_map_point_x<527 && road_map_point_y>240 && road_map_point_y<340){
             //11
+            RoadMapStatus[11]=1;
             ui->RoadMapLabel11->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>527 && road_map_point_x<627 && road_map_point_y>240 && road_map_point_y<340){
             //12
+            RoadMapStatus[12]=1;
             ui->RoadMapLabel12->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>227 && road_map_point_x<327 && road_map_point_y>340 && road_map_point_y<440){
             //13
+            RoadMapStatus[13]=1;
             ui->RoadMapLabel13->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>327 && road_map_point_x<427 && road_map_point_y>340 && road_map_point_y<440){
             //14
+            RoadMapStatus[14]=1;
             ui->RoadMapLabel14->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>427 && road_map_point_x<527 && road_map_point_y>340 && road_map_point_y<440){
             //15
+            RoadMapStatus[15]=1;
             ui->RoadMapLabel15->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>527 && road_map_point_x<627 && road_map_point_y>340 && road_map_point_y<440){
             //16
+            RoadMapStatus[16]=1;
             ui->RoadMapLabel16->setStyleSheet("background-color: rgb(255, 255, 0)");
         }else if(road_map_point_x>754 && road_map_point_x<854 && road_map_point_y>380 && road_map_point_y<480){
-            //16
+            //DONE
+            RoadMapStatus[0]=1;
             ui->RoadMapDoneLabel->setStyleSheet("background-color: rgb(255, 255, 0)");
+//            int ROADMAP = RoadMapStatus[1]+RoadMapStatus[2]+RoadMapStatus[3];
+//            emit Done(ROADMAP);
+            emit Done(&RoadMapStatus[0]);
+            for(int i=0;i<17;i++){
+                RoadMapStatus[i] = 0;
+            }
+            updateRoadMap->stop();
+            updateRoadMapPaint->stop();
+            this->~RoadMapGesture();
         }
     }else{
         ui->RoadMapLabel1->setStyleSheet("");
@@ -115,8 +147,9 @@ void RoadMapGesture::setRoadMap(){
         ui->RoadMapLabel14->setStyleSheet("");
         ui->RoadMapLabel15->setStyleSheet("");
         ui->RoadMapLabel16->setStyleSheet("");
+        ui->RoadMapDoneLabel->setStyleSheet("");
+        RoadMapStatus[17] = {0};
     }
-
 }
 
 void RoadMapGesture::paintEvent(QPaintEvent *event){

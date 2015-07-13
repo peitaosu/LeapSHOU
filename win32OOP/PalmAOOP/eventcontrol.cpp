@@ -2,7 +2,7 @@
 #include <QTimer>
 #include <QApplication>
 #include <QDesktopWidget>
-
+#include "roadmapgesture.h"
 #define GRABSTART_SHOW 111
 #define GRABKEEP_SHOW 112
 #define GRABSTOP_SHOW 110
@@ -68,6 +68,9 @@ EventControl::EventControl(QObject *parent) :
      connect(this,SIGNAL(handDown()),OP,SLOT(moveWindowtoDown()));
      connect(this,SIGNAL(handLeft()),OP,SLOT(moveWindowtoLeft()));
      connect(this,SIGNAL(handRight()),OP,SLOT(moveWindowtoRight()));
+
+     connect(this,SIGNAL(showRoadMapS()),this,SLOT(showRoadMap()));
+     //connect(this,SIGNAL(releaseRoadMapS()),this,SLOT(releaseRoadMap()));
 }
 
 EventControl::~EventControl(){
@@ -92,6 +95,7 @@ void EventControl::EventListenner(){
             break;
         case 3:
             emit pcS();
+            //emit releaseRoadMapS();
             break;
         case 0:
             emit otherS();
@@ -263,11 +267,11 @@ void EventControl::desktop(){
     connect(this,SIGNAL(pinchStart()),this,SLOT(showDT()));
     connect(this,SIGNAL(pinchStart()),this,SLOT(MouseLeftClick()));
     connect(this,SIGNAL(pinchStop()),this,SLOT(hideDT()));
-    connect(this,SIGNAL(turntableUp()),OP,SLOT(openFileManager()));
+    connect(this,SIGNAL(turntableUp()),this,SIGNAL(showRoadMapS()));
     connect(this,SIGNAL(turntableDown()),OP,SLOT(openBrowser()));
     connect(this,SIGNAL(turntableLeft()),OP,SLOT(openBrowser()));
     connect(this,SIGNAL(turntableRight()),OP,SLOT(openFileManager()));
-
+    connect(this,SIGNAL(RoadMapS(int,int,int,int)),this,SLOT(RoadMap(int,int,int,int)));
 }
 void EventControl::browser(){
     emit disconnectAllS();
@@ -319,6 +323,7 @@ void EventControl::disconnectAll(){
     disconnect(this,SIGNAL(turntableDown()),0,0);
     disconnect(this,SIGNAL(turntableLeft()),0,0);
     disconnect(this,SIGNAL(turntableRight()),0,0);
+    disconnect(this,SIGNAL(RoadMapS(int,int,int,int)),0,0);
 
 }
 
@@ -399,3 +404,33 @@ void EventControl::hideDT(){
     DT.hide();
 }
 
+void EventControl::showRoadMap(){
+    RMG = new RoadMapGesture();
+    RMG->show();
+    connect(RMG,SIGNAL(Done(int*)),this,SLOT(outRoadMap(int*)));
+}
+
+void EventControl::outRoadMap(int *RoadMap)
+{
+//    std::cout<<"~~~~~~~~~"<<std::endl;
+//    for(int i=0;i<17;i++){
+//        std::cout<<RoadMap[i];
+//    }
+//    std::cout<<std::endl;
+
+    int RoadMap1 = RoadMap[1]*1000 + RoadMap[2]*100 + RoadMap[3]*10 + RoadMap[4];
+    int RoadMap2 = RoadMap[5]*1000 + RoadMap[6]*100 + RoadMap[7]*10 + RoadMap[8];
+    int RoadMap3 = RoadMap[9]*1000 + RoadMap[10]*100 + RoadMap[11]*10 + RoadMap[12];
+    int RoadMap4 = RoadMap[13]*1000 + RoadMap[14]*100 + RoadMap[15]*10 + RoadMap[16];
+
+    emit RoadMapS(RoadMap1,RoadMap2,RoadMap3,RoadMap4);
+}
+
+void EventControl::RoadMap(int RoadMap1, int RoadMap2, int RoadMap3, int RoadMap4)
+{
+    if(RoadMap1 == 0 && RoadMap2 == 1111 && RoadMap3 == 0 && RoadMap4 == 0){
+        OP->lockscreen();
+    }else if(RoadMap1 == 0 && RoadMap2 == 0 && RoadMap3 == 1111 && RoadMap4 == 0){
+        OP->logout();
+    }
+}

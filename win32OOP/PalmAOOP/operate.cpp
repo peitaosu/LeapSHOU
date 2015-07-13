@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <iostream>
 #pragma comment (lib,"Advapi32.lib")
+#pragma comment (lib,"User32.lib")
 Operate::Operate(QObject *parent) :
     QObject(parent)
 {
@@ -115,10 +116,11 @@ void Operate::goEnter(){
 
 void Operate::lockscreen()
 {
-    keybd_event(VK_LWIN,0,0,0);
-    keybd_event(0x4C,0,0,0);
-    keybd_event(0x4C,0,KEYEVENTF_KEYUP,0);
-    keybd_event(VK_LWIN,0,KEYEVENTF_KEYUP,0);
+//    keybd_event(VK_LWIN,0,0,0);
+//    keybd_event(0x4C,0,0,0);
+//    keybd_event(0x4C,0,KEYEVENTF_KEYUP,0);
+//    keybd_event(VK_LWIN,0,KEYEVENTF_KEYUP,0);
+    LockWorkStation();
 }
 
 void Operate::goBack(){

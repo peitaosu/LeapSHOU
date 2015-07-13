@@ -13,6 +13,7 @@
 #include "displayturntable.h"
 #include "displaymouseline.h"
 #include "drawgesture.h"
+#include "roadmapgesture.h"
 class EventControl : public QObject
 {
     Q_OBJECT
@@ -57,6 +58,9 @@ signals:
 
     void showGesture(int);
 
+    void showRoadMapS();
+
+    void RoadMapS(int,int,int,int);
 public slots:
     void EventListenner();
 
@@ -74,6 +78,9 @@ public slots:
 
     void disconnectAll();
 
+    void showRoadMap();
+    void outRoadMap(int*);
+    void RoadMap(int,int,int,int);
 private:
 
     Leap::Controller controller;
@@ -86,8 +93,9 @@ private:
     //DisplayStatus DS;
     DisplayTurntable DT;
     DisplayMouseLine DML;
-
     //DrawGesture DG;
+    RoadMapGesture *RMG;
+
 };
 
 extern int Turntable[2];
