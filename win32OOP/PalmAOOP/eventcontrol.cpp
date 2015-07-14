@@ -47,7 +47,7 @@ EventControl::EventControl(QObject *parent) :
      //DS.show();
      DML.show();
      OP = new Operate(this);
-
+     SP = new SettingPanel();
      //DG.show();
 
 
@@ -64,10 +64,10 @@ EventControl::EventControl(QObject *parent) :
 
      connect(this,SIGNAL(disconnectAllS()),this,SLOT(disconnectAll()));
 
-     connect(this,SIGNAL(handUp()),OP,SLOT(moveWindowtoUp()));
-     connect(this,SIGNAL(handDown()),OP,SLOT(moveWindowtoDown()));
-     connect(this,SIGNAL(handLeft()),OP,SLOT(moveWindowtoLeft()));
-     connect(this,SIGNAL(handRight()),OP,SLOT(moveWindowtoRight()));
+     //connect(this,SIGNAL(handUp()),OP,SLOT(moveWindowtoUp()));
+     //connect(this,SIGNAL(handDown()),OP,SLOT(moveWindowtoDown()));
+     //connect(this,SIGNAL(handLeft()),OP,SLOT(moveWindowtoLeft()));
+     //connect(this,SIGNAL(handRight()),OP,SLOT(moveWindowtoRight()));
 
      connect(this,SIGNAL(showRoadMapS()),this,SLOT(showRoadMap()));
      //connect(this,SIGNAL(releaseRoadMapS()),this,SLOT(releaseRoadMap()));
@@ -268,7 +268,7 @@ void EventControl::desktop(){
     connect(this,SIGNAL(pinchStart()),this,SLOT(MouseLeftClick()));
     connect(this,SIGNAL(pinchStop()),this,SLOT(hideDT()));
     connect(this,SIGNAL(turntableUp()),this,SIGNAL(showRoadMapS()));
-    connect(this,SIGNAL(turntableDown()),OP,SLOT(openBrowser()));
+    connect(this,SIGNAL(turntableDown()),SP,SLOT(show()));
     connect(this,SIGNAL(turntableLeft()),OP,SLOT(openBrowser()));
     connect(this,SIGNAL(turntableRight()),OP,SLOT(openFileManager()));
     connect(this,SIGNAL(RoadMapS(int,int,int,int)),this,SLOT(RoadMap(int,int,int,int)));
@@ -349,7 +349,6 @@ void EventControl::showDT(){
     int DT_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * QApplication::desktop()->height() -160;
     Turntable[0] = DT_x;
     Turntable[1] = DT_y;
-    std::cout<<FGW.getFGWinName()<<std::endl;
     switch (FGW.getFGWinName()) {
     case 1:
         DT.setFGWin(1);
@@ -360,8 +359,8 @@ void EventControl::showDT(){
          break;
     case 3:
         DT.setFGWin(3);
-         DT.showDisplayTurntable(DT_x,DT_y);
-         break;
+        DT.showDisplayTurntable(DT_x,DT_y);
+        break;
     default:
         break;
     }
@@ -372,7 +371,7 @@ void EventControl::hideDT(){
     Leap::InteractionBox iBox = controller.frame().interactionBox();
     int DT_x = iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).x * QApplication::desktop()->width() -160;
     int DT_y = (1-iBox.normalizePoint(controller.frame().hands()[0].stabilizedPalmPosition()).y) * QApplication::desktop()->height() -160;
-    if(Turntable[0] != 0){
+    if(Turntable[0] != 0 && DT_x != Turntable[0]){
         float slope = (DT_y - Turntable[1])/(DT_x - Turntable[0]);
         int Horizontal,Vertical=0;
         if(DT_x - Turntable[0] >= 0){

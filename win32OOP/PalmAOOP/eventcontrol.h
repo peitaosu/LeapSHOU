@@ -14,6 +14,7 @@
 #include "displaymouseline.h"
 #include "drawgesture.h"
 #include "roadmapgesture.h"
+#include "settingpanel.h"
 class EventControl : public QObject
 {
     Q_OBJECT
@@ -95,7 +96,7 @@ private:
     DisplayMouseLine DML;
     //DrawGesture DG;
     RoadMapGesture *RMG;
-
+    SettingPanel *SP;
 };
 
 extern int Turntable[2];

@@ -206,7 +206,7 @@ int GestureRecognition::gesHoldDouble(){
 }
 bool GestureRecognition::gesPinchLeft(){
     Leap::Hand handLeft = controller.frame().hands().leftmost();
-    if(handLeft.pinchStrength() >= 0.95){
+    if(handLeft.pinchStrength() >= 0.80){
         return 1;
     }else{
         return 0;
@@ -214,7 +214,7 @@ bool GestureRecognition::gesPinchLeft(){
 }
 bool GestureRecognition::gesPinchRight(){
     Leap::Hand handRight = controller.frame().hands().rightmost();
-    if(handRight.pinchStrength() >= 0.95){
+    if(handRight.pinchStrength() >= 0.80){
         return 1;
     }else{
         return 0;
@@ -319,24 +319,24 @@ bool GestureRecognition::gesScreenTap(){
 
 int GestureRecognition::gesHandDirection(){
     Leap::Vector handSpeed = controller.frame().fingers()[0].tipVelocity();
-    if(handSpeed.x > 1000){
+    if(handSpeed.x > 1500){
         //LEFT
         return 1;
-    }else if(handSpeed.x < -1000){
+    }else if(handSpeed.x < -1500){
         //RIGHT
         return 2;
     }
-    if(handSpeed.y > 1000){
+    if(handSpeed.y > 1500){
         //UP
         return 3;
-    }else if(handSpeed.y < -1000){
+    }else if(handSpeed.y < -1500){
         //DOWN
         return 4;
     }
-    if(handSpeed.z > 1000){
+    if(handSpeed.z > 1500){
         //FORWARD
         return 5;
-    }else if(handSpeed.z < -1000){
+    }else if(handSpeed.z < -1500){
         //BACKWARD
         return 6;
     }

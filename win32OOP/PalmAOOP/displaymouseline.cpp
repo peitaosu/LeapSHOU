@@ -41,7 +41,7 @@ void DisplayMouseLine::paintEvent(QPaintEvent *event){
     painter.setPen(pen);
     painter.setBrush(QBrush(QColor(00,160,255,200)));
     //painter. drawLine( 100 , 100 , 500 , 500 );
-    if(prevx!=0){
+    if(prevx!=0 && prevy!=0){
         painter. drawLine( prevx+160 , prevy+160 , crtx , crty );
     }
     //std::cout<<prevx<<prevy<<crtx<<crty<<std::endl;

@@ -67,3 +67,4 @@ DEPENDPATH += $$PWD/lib/x64
 
 RESOURCES += \
     pngs.qrc
+

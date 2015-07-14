@@ -148,7 +148,9 @@ void RoadMapGesture::setRoadMap(){
         ui->RoadMapLabel15->setStyleSheet("");
         ui->RoadMapLabel16->setStyleSheet("");
         ui->RoadMapDoneLabel->setStyleSheet("");
-        RoadMapStatus[17] = {0};
+        for(int i=0;i<17;i++){
+            RoadMapStatus[i] = 0;
+        }
     }
 }
 
