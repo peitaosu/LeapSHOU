@@ -2,6 +2,7 @@
 #define VMOUSE_H
 
 #include <QWidget>
+#include "operate.h"
 
 namespace Ui {
 class vmouse;
@@ -17,10 +18,14 @@ public:
 
 private:
     Ui::vmouse *ui;
-
+    Operate *OP;
 private slots:
     void paintEvent(QPaintEvent *event);
 
+
 };
+
+extern char vbuf[];
+extern int Status;
 
 #endif // VMOUSE_H

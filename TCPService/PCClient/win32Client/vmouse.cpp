@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include <QDesktopWidget>
 #include <QTimer>
 #include <QCursor>
@@ -24,12 +23,16 @@ char vbuf[VBUFFER_SIZE];
 int vservfd,vclifd,vlength = 0;
 int screen_x,screen_y,mouse_x,mouse_y;
 char scx[] = "HELLO";
+int prevrrceive = 0;
+int Status = 0;
 SOCKET sclient;
 vmouse::vmouse(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::vmouse)
 {
     ui->setupUi(this);
+
+    OP = new Operate();
 
     //Set Geometry Full Sreen, Flag : Tool | Frameless | Stay On Top
     this->setGeometry(0,0,QApplication::desktop()->width(),QApplication::desktop()->height());
@@ -78,7 +81,19 @@ void vmouse::paintEvent(QPaintEvent *event){
     int ret = recv(sclient, vbuf, 255, 0);
     if(ret > 0)
     {
-       vbuf[ret] = 0x00;
-       std::cout<<vbuf<<std::endl;
+       vbuf[1] = 0x00;
+       std::cout<<vbuf[0]<<","<<prevrrceive<<std::endl;
+       if(vbuf[0] == 52 && prevrrceive == 53){
+           //5->4
+           Status = 524;
+           OP->keyUp();
+       }else if(vbuf[0] == 52 && prevrrceive == 51){
+           //4->3
+           Status = 423;
+           OP->keyDown();
+       }else{
+           Status = 0;
+       }
+       prevrrceive = vbuf[0];
     }
 }

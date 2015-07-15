@@ -14,12 +14,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    vmouse.cpp
+    vmouse.cpp \
+    display.cpp \
+    operate.cpp
 
 HEADERS  += \
-    vmouse.h
+    vmouse.h \
+    display.h \
+    operate.h
 
 FORMS    += \
-    vmouse.ui
+    vmouse.ui \
+    display.ui
 
 #LIBS += -lX11 -lXext -lXtst
