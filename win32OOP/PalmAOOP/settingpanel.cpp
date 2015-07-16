@@ -4,6 +4,7 @@
 #include <QSettings>
 
 //开机自启动项在注册表中的路径，cmd->regedit->HKEY_CURRENT_USER->Software->Microsoft->Windows->CurrentVersion->Run
+//the path of startup in the register table
 #define REG_RUN "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
 
 SettingPanel::SettingPanel(QWidget *parent) :
@@ -14,8 +15,12 @@ SettingPanel::SettingPanel(QWidget *parent) :
     /*
      * 事件：
      * 当checkbox被按下时，根据是否按下，把bool型的状态发给槽函数setAutoStart(bool);
-     * 然后用setAutoStartINI(bool)把相应的设置写入ini文件。
+     * 然后用setAutoStartINI(bool)把相应的设置写入ini文件;
      * 设置更改后，发送AutoStartChanged()信号，触发text的改变。
+     * Event:
+     * when checkbox clicked, send bool status to slot setAutoStart(bool);
+     * use setAutoStartINI(bool) to write the options to *.ini file;
+     * after the option changed, send signal AutoStartChanged(), and change the text.
      */
     connect(ui->auto_start_checkbox,SIGNAL(clicked(bool)),this,SLOT(setAutoStart(bool)));
     connect(ui->auto_start_checkbox,SIGNAL(clicked(bool)),this,SLOT(setAutoStartINI(bool)));
@@ -29,6 +34,7 @@ SettingPanel::~SettingPanel()
 
 /*
  * 获取Option.ini文件中，组AutoStart的项auto_start的值，类型为bool，返回值为bool型
+ * get the value of auto_start one of keys in the AutoStart from file Option.ini, return bool
  * #####Option.ini#####
  * [AutoStart]
  * auto_start = true or flase
@@ -41,10 +47,13 @@ bool SettingPanel::getAutoStartINI()
 }
 /*
  * 设置Option.ini文件中，组AutoStart的项auto_start的值，类型为bool，传入值为bool型，无返回值
+ * set the value of auto_start one of keys in the AutoStart in file Option.ini;
+ * the value type is bool and import type is bool, no return
  * #####Option.ini#####
  * [AutoStart]
  * auto_start = true or flase
  * 设置好后发送信号AutoStartChanged()，通知槽函数该值已经改变。
+ * after set the option, send signal AutoStartChanged() to let the slot know the value had changed
  */
 void SettingPanel::setAutoStartINI(bool auto_start)
 {
@@ -60,6 +69,7 @@ void SettingPanel::setAutoStartINI(bool auto_start)
 }
 /*
  * 设置注册表中的REG_RUN项，传入值为bool型，无返回值
+ * set the REG_RUN in the register table, import value type is bool, no return
  */
 void SettingPanel::setAutoStart(bool is_auto_start)
 {
@@ -79,6 +89,8 @@ void SettingPanel::setAutoStart(bool is_auto_start)
 /*
  * 更改控件checkbox的text属性
  * 根据getAutoStartINI()的返回值，更改为相应的文字。
+ * change the checkbox text
+ * change to what return from getAutoStartINI()
  */
 void SettingPanel::setCheckButton()
 {
@@ -90,16 +102,18 @@ void SettingPanel::setCheckButton()
 }
 /*
  * 退出按钮事件
+ * Exit event
  */
 void SettingPanel::on_exit_Setting_Panel_Button_clicked()
 {
     this->hide();
 }
-
-
+/*
+ * 重置按钮事件
+ * Reset event
+ */
 void SettingPanel::on_reset_Setting_Panel_Button_clicked()
 {
     ui->auto_start_checkbox->setChecked(false);
     emit ui->auto_start_checkbox->clicked(false);
-
 }

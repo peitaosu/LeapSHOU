@@ -21,7 +21,6 @@
 #define CIRCLEANTISTOP_SHOW 150
 
 
-
 #define ON 0
 #define START 1
 #define KEEP 2
