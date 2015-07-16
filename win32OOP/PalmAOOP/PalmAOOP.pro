@@ -25,7 +25,6 @@ SOURCES += main.cpp \
     lmlistenner.cpp \
     displaystatus.cpp \
     displaymouseline.cpp \
-    lmengineeringmodel.cpp \
     drawgesture.cpp \
     settingpanel.cpp \
     roadmapgesture.cpp
@@ -44,7 +43,6 @@ HEADERS  += \
     lmlistenner.h \
     displaystatus.h \
     displaymouseline.h \
-    lmengineeringmodel.h \
     drawgesture.h \
     settingpanel.h \
     roadmapgesture.h
@@ -55,7 +53,6 @@ FORMS    += \
     displayturntable.ui \
     displaystatus.ui \
     displaymouseline.ui \
-    lmengineeringmodel.ui \
     drawgesture.ui \
     settingpanel.ui \
     roadmapgesture.ui

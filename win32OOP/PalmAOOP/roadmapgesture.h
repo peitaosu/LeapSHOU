@@ -20,7 +20,6 @@ signals:
     void Done(int *);
 private slots:
     void setRoadMap();
-    void DoneSlot(int *);
 
 private:
     Ui::RoadMapGesture *ui;

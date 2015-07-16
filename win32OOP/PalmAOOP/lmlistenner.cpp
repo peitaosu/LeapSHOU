@@ -1,4 +1,9 @@
 #include "lmlistenner.h"
+
+//全局变量int型数组，记录设备、服务和应用状态
+//下标0为设备状态；下标1为服务状态；下标2为应用状态
+//global integer list to record device service and application status
+//subscript 0 is device status, 1 is service and 2 is application
 int Status[3];
 
 void LMListenner::onInit(const Leap::Controller & controller){
